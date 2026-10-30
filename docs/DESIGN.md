@@ -97,7 +97,7 @@ and its owner is not hostile to the player. Player colonies count.
 
 ## Screen
 
-A "Visit the shipyard's crew Station works" option appears in the market dock dialog (rules.csv
+A "Visit the shipyard's Station yard" option appears in the market dock dialog (rules.csv
 `PopulateOptions`) only at a Shipyard. It opens a 1120×700 custom dialog (fits the 1280×768 minimum screen).
 Reference layout: the "Crew Stations Shipyard UI" design canvas (https://claude.ai/artifact/UqcqQEFpxNMhFU4FhdpwzD).
 

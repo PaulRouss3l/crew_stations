@@ -32,6 +32,10 @@ A Station whose requirement the ship no longer meets (e.g. no shields after a re
 A market where Stations can be built: functional `heavyindustry`-tagged industry, not disrupted, owner not hostile.
 _Avoid_: dockyard, station (a space station is a market location, not a Station)
 
+**Station yard**:
+The screen where Stations are built, upgraded and dismantled, opened from a Shipyard's dock menu.
+_Avoid_: crew Station works (the 0.1.0 name)
+
 **L3 gate**:
 The rule that L3 needs a Shipyard with Orbital Works or a nanoforge.
 

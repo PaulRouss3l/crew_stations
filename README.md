@@ -10,7 +10,7 @@
 
 **[Download the latest release](https://github.com/PaulRouss3l/crew_stations/releases)** (zip, extract into `mods/`). No dependencies.
 
-Dock at any market with heavy industry and visit its **crew Station works**. There you can build
+Dock at any market with heavy industry and visit its **Station yard**. There you can build
 dedicated, crewed compartments aboard your ships: a shield control room, an engine room, a missile
 magazine... Each Station improves one part of the ship and can be upgraded twice. They are expensive,
 they need extra crew, and they stay with the ship for good.
@@ -19,7 +19,7 @@ they need extra crew, and they stay with the ship for good.
 
 1. **Find a Shipyard.** Any market with working **Heavy Industry** (or a modded industry tagged as
    one) whose owner is not hostile, your own colonies included. The dock menu shows *Visit the
-   shipyard's crew Station works*.
+   shipyard's Station yard*.
 2. **Pick a ship.** Frigates have 1 Station slot, destroyers 2, cruisers 3, capitals 4. Automated
    ships have no crew, so no Stations.
 3. **Build a Station.** Ten types, each with its own requirement (shields, a phase cloak, fighter

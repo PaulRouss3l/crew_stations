@@ -2,5 +2,5 @@ id,trigger,conditions,script,text,options,notes
 crst_shipyardOption,PopulateOptions,"$hasMarket
 $menuState == main
 $tradeMode == OPEN
-CrstShipyard isShipyard",,,26:crst_openShipyard:Visit the shipyard's crew Station works,Crew Stations: entry point at Shipyards (heavy industry).
+CrstShipyard isShipyard",,,26:crst_openShipyard:Visit the shipyard's Station yard,Crew Stations: entry point at Shipyards (heavy industry).
 crst_openShipyard,DialogOptionSelected,$option == crst_openShipyard,CrstShipyard open,,,Opens the Shipyard screen; the market menu stays as it was.

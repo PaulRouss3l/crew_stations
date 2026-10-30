@@ -306,7 +306,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     private void buildHeader(Painter paint) {
         paint.fill(0, 0, WIDTH, HEADER_H, PANEL).line(0, HEADER_H, WIDTH, HEADER_H, LINE);
         TooltipMakerAPI title = content.createUIElement(560f, HEADER_H - 12f, false);
-        para(title, str("ui_works_title"), Fonts.ORBITRON_20AABOLD, TEXT, 0f);
+        para(title, str("ui_yard_title"), Fonts.ORBITRON_20AABOLD, TEXT, 0f);
         para(title, fmt("ui_subtitle", market.getName(), Shipyard.capSource(market)), null, DIM, 2f);
         put(content, title, PAD, 8f);
 

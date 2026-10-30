@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 (beta)
+
+- The crew Station works is now called the **Station yard** (dock menu and screen title).
+
+
 ## 0.1.0 (beta)
 
 First public release.

@@ -65,7 +65,7 @@
 		"ui_missing": "%s %s short",
 		"ui_poor": "Not enough credits (%s)",
 		"ui_already_built": "already built",
-		"ui_works_title": "CREW STATION WORKS",
+		"ui_yard_title": "STATION YARD",
 		"ui_subtitle": "%s - %s shipyard",
 		"ui_chip_credits": "CREDITS",
 		"ui_chip_max_level": "MAX LEVEL",
