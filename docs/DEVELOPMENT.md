@@ -20,7 +20,7 @@ adapted for **Linux** and Starsector **0.98a** (bundled Zulu JDK 17).
    (VSCode prompts to install them from `.vscode/extensions.json`).
 3. **Symlink the project into the game's `mods/`** so the launcher loads it:
    ```sh
-   ln -s /home/ubik/localhost/perso/crew-stations \
+   ln -s /home/ubik/localhost/perso/starsector/crew-stations \
          /home/ubik/Downloads/starsector/mods/crew-stations
    ```
 

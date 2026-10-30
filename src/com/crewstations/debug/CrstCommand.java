@@ -1,5 +1,6 @@
 package com.crewstations.debug;
 
+import java.util.List;
 import java.util.Map;
 
 import org.lazywizard.console.BaseCommand;
@@ -14,11 +15,19 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
  * Debug command for the Console Commands mod (registered in data/console/commands.csv). Console
  * loads it only when it is enabled, so players without Console never load this class.
  *
- *   crst list                      the flagship's Stations and slots
+ * Commands act on the selected ship: the flagship unless {@code crst select} picked another one
+ * (needed for automated ships, which the player cannot pilot).
+ *
+ *   crst ships                     numbered fleet list, * = selected ship
+ *   crst select <n>|flagship       act on fleet ship n, or back on the flagship
+ *   crst list                      the selected ship's Stations and slots
  *   crst add <station> <level>     build or set a Station (same checks as a Shipyard, minus cost)
  *   crst clear [station]           remove one Station, or all
  */
 public class CrstCommand implements BaseCommand {
+
+    /** FleetMemberAPI id of the selected ship; null = flagship. An id string, never the member itself. */
+    private static String selectedId;
 
     @Override
     public CommandResult runCommand(String args, CommandContext context) {
@@ -26,28 +35,85 @@ public class CrstCommand implements BaseCommand {
             Console.showMessage("Crew Stations commands work on the campaign map only.");
             return CommandResult.WRONG_CONTEXT;
         }
-        FleetMemberAPI flagship = Global.getSector().getPlayerFleet().getFlagship();
-        if (flagship == null) {
-            Console.showMessage("No flagship.");
-            return CommandResult.ERROR;
-        }
         String[] a = args.trim().isEmpty() ? new String[0] : args.trim().split("\\s+");
         if (a.length == 0) return CommandResult.BAD_SYNTAX;
         try {
             switch (a[0].toLowerCase()) {
+                case "ships":
+                    return ships();
+                case "select":
+                    if (a.length < 2) return CommandResult.BAD_SYNTAX;
+                    return select(a[1]);
+                default:
+                    break;
+            }
+            FleetMemberAPI ship = selected();
+            if (ship == null) {
+                Console.showMessage("No flagship.");
+                return CommandResult.ERROR;
+            }
+            switch (a[0].toLowerCase()) {
                 case "list":
-                    return list(flagship);
+                    return list(ship);
                 case "add":
                     if (a.length < 3) return CommandResult.BAD_SYNTAX;
-                    return add(flagship, a[1], Integer.parseInt(a[2]));
+                    return add(ship, a[1], Integer.parseInt(a[2]));
                 case "clear":
-                    return clear(flagship, a.length > 1 ? a[1] : null);
+                    return clear(ship, a.length > 1 ? a[1] : null);
                 default:
                     return CommandResult.BAD_SYNTAX;
             }
         } catch (NumberFormatException e) {
             return CommandResult.BAD_SYNTAX;
         }
+    }
+
+    private static List<FleetMemberAPI> fleet() {
+        return Global.getSector().getPlayerFleet().getFleetData().getMembersListCopy();
+    }
+
+    /** The selected ship, falling back to the flagship when it left the fleet. */
+    private static FleetMemberAPI selected() {
+        if (selectedId != null) {
+            for (FleetMemberAPI m : fleet()) {
+                if (m.getId().equals(selectedId)) return m;
+            }
+            selectedId = null;
+        }
+        return Global.getSector().getPlayerFleet().getFlagship();
+    }
+
+    private CommandResult ships() {
+        FleetMemberAPI current = selected();
+        List<FleetMemberAPI> members = fleet();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < members.size(); i++) {
+            FleetMemberAPI m = members.get(i);
+            sb.append(m == current ? " * " : "   ").append(i + 1).append(". ").append(m.getShipName()).append(" (")
+                    .append(m.getHullSpec().getHullNameWithDashClass()).append(")");
+            if (m.isFighterWing()) sb.append(" wing");
+            else if (Stations.slots(m) == 0) sb.append(" automated");
+            else sb.append(" ").append(Stations.read(m).size()).append("/").append(Stations.slots(m));
+            if (m.isFlagship()) sb.append(" [flagship]");
+            sb.append("\n");
+        }
+        Console.showMessage(sb.toString());
+        return CommandResult.SUCCESS;
+    }
+
+    private CommandResult select(String arg) {
+        if (arg.equalsIgnoreCase("flagship")) {
+            selectedId = null;
+            return list(selected());
+        }
+        List<FleetMemberAPI> members = fleet();
+        int n = Integer.parseInt(arg);
+        if (n < 1 || n > members.size()) {
+            Console.showMessage("No ship " + n + ": pick 1 to " + members.size() + " (see crst ships).");
+            return CommandResult.ERROR;
+        }
+        selectedId = members.get(n - 1).getId();
+        return list(selected());
     }
 
     private CommandResult list(FleetMemberAPI ship) {
