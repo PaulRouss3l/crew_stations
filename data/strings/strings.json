@@ -75,7 +75,6 @@
 		"ui_stat_skeleton": "SKELETON CREW",
 		"ui_stat_max_crew": "MAX CREW",
 		"ui_slot_n": "SLOT %s",
-		"ui_fit_count": "%s of %s Stations fit this ship",
 		"ui_build_station": "Build a Station",
 		"ui_level_short": "L%s - %s",
 		"ui_col_effect": "EFFECT",

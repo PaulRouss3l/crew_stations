@@ -109,8 +109,7 @@ Reference layout: the "Crew Stations Shipyard UI" design canvas (https://claude.
 - Ship panel: hull sprite on a grid, name and class, boxes for Station slots, skeleton crew and max crew
   (base -> now, +N%).
 - One card per slot. Station card: art banner, name, Level bar, effects table (now vs next Level), price or
-  the reason it cannot be upgraded, Upgrade and Dismantle. Empty slot: dashed card, how many Station types
-  fit, "Build a Station".
+  the reason it cannot be upgraded, Upgrade and Dismantle. Empty slot: dashed card, "Build a Station".
 
 **Picker** ("Build a Station")
 

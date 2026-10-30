@@ -199,10 +199,10 @@ class Painter implements CustomUIPanelPlugin {
      * not get input of their own; the first caller consumes the click, so it fires once.
      */
     void handle(InputEventAPI e) {
-        if (clickId == null || pos == null) return;
+        // A consumed event throws on any data access: check first.
+        if (clickId == null || pos == null || e.isConsumed()) return;
         boolean inside = pos.containsEvent(e) && (clip == null || clip.containsEvent(e));
         if (e.isMouseMoveEvent()) hover = inside;
-        if (e.isConsumed()) return;
         if (inside && e.isLMBDownEvent()) {
             e.consume();
             Global.getSoundPlayer().playUISound("ui_button_pressed", 1f, 1f);

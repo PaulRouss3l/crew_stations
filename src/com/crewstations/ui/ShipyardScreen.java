@@ -245,16 +245,6 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         return why != null ? why : cannotPay(1);
     }
 
-    /** Station types whose requirement this ship meets and that are not built yet. */
-    private int fitCount() {
-        Map<StationType, Integer> built = Stations.read(ship);
-        int n = 0;
-        for (StationType t : StationType.values()) {
-            if (!built.containsKey(t) && t.requirement.isMet(ship.getVariant())) n++;
-        }
-        return n;
-    }
-
     private StationType firstBuildable() {
         for (StationType t : StationType.values()) {
             if (whyNotBuild(t) == null) return t;
@@ -470,8 +460,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             stationCard(x0 + i * (cw + GAP), cy, cw, ch, e.getKey(), e.getValue());
             i++;
         }
-        int fits = fitCount();
-        for (; i < slots; i++) emptyCard(x0 + i * (cw + GAP), cy, cw, ch, i + 1, fits);
+        for (; i < slots; i++) emptyCard(x0 + i * (cw + GAP), cy, cw, ch, i + 1);
     }
 
     private void statBox(float x, float y, float w, String label, String value) {
@@ -559,7 +548,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         content.addComponent(card).inTL(x, y);
     }
 
-    private void emptyCard(float x, float y, float w, float h, int slot, int fits) {
+    private void emptyCard(float x, float y, float w, float h, int slot) {
         Painter cp = new Painter(this);
         CustomPanelAPI card = content.createCustomPanel(w, h, cp);
         cp.fill(0, 0, w, h, new Color(7, 15, 20)).dashed(0, 0, w, h, LINE);
@@ -570,12 +559,11 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         float bx = w / 2f - 28f, by = cy + 28f;
         cp.border(bx, by, 56f, 56f, LINE).line(bx + 28f, by + 14f, bx + 28f, by + 42f, CYAN)
                 .line(bx + 14f, by + 28f, bx + 42f, by + 28f, CYAN);
-        TooltipMakerAPI t = card.createUIElement(w - 20f, 70f, false);
-        para(t, fmt("ui_fit_count", "" + fits, "" + StationType.values().length), null, DIM, 0f).setAlignment(Alignment.MID);
+        TooltipMakerAPI t = card.createUIElement(w - 20f, 40f, false);
         ButtonAPI b = button(t, str("ui_build_station"), "pick", Color.WHITE, PRIMARY_BG, 170f, 32f, true);
         b.getPosition().setXAlignOffset((w - 20f - 170f) / 2f);
         b.setEnabled(pending == null);
-        put(card, t, 10f, by + 72f);
+        put(card, t, 10f, by + 76f);
         content.addComponent(card).inTL(x, y);
     }
 

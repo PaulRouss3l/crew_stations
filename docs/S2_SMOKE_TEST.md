@@ -24,7 +24,7 @@ Handy console commands: `addcredits 10000000`, `additem heavy_machinery 2000` (a
 - [ ] Ship panel: hull sprite on a grid, name + class, STATION SLOTS / SKELETON CREW / MAX CREW boxes.
       Automated ship: "no crew, so no Stations", no cards.
 - [ ] Station card: art banner, name, level bar, effects table NOW vs next level, price line, Upgrade +
-      Dismantle side by side. Empty slot: dashed card, "N of 10 Stations fit", Build a Station.
+      Dismantle side by side. Empty slot: dashed card, Build a Station.
 - [ ] Capital ship (4 slots): cards still readable, nothing overlaps the card footer.
 - [ ] ESC: closes the drawer, then the picker, then the screen. Close button closes it. The market menu is
       intact afterwards.
