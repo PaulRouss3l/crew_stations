@@ -7,8 +7,8 @@ smoke-test list for the human tester. Design: `DESIGN.md`. Terms: `GLOSSARY.md`.
 
 Status legend: ⬜ planned · 🟡 code-complete, needs in-game test · ✅ verified in game.
 
-**Current target: S3** — art (in progress). Proposed before it: Station types defined in config, so players and other
-mods can add their own.
+**Current target: S5, release 0.2.0** — locked Stations: Simulator Bay (Slay the Sector reward) and achievement unlocks (0.2.0). Later: Station types defined in
+config, so players and other mods can add their own.
 
 ## S0 — Scaffold
 
@@ -60,3 +60,18 @@ Pipeline and prompts: `ART.md`.
 - 🟡 Balance pass against vanilla s-mods/skills. Prices lowered to 0.75× after play-testing.
 - ✅ README, forum post, known issues (sold ship keeps Stations).
 - 🟡 Release 0.1.0 (beta).
+
+## S5 — Locked Stations (0.2.0)
+
+In-game checklist: `S5_SMOKE_TEST.md`. Decision: `adr/0002-*`.
+
+- 🟡 Simulator Bay: max CR +5/10/15 points, CR recovery +15/30/50%, any crewed ship.
+- 🟡 Offered only after a won Run in Slay the Sector (its `saves/common` file), normal price, *Reward* tab.
+- 🟡 `crst_unlockAll` setting and `crst unlock [on|off|auto]` for testing.
+- 🟡 Achievement unlocks, per save: Missile Silo (enemy capital destroyed), Phase Station (1,000,000 credits),
+  Engine Station (5,000 fuel).
+- ✅ Locked Stations shown greyed in The Catalogue, details hidden (???), how to unlock them (Slay the Sector
+  missing: says so).
+- ✅ Station Yard Inc. message (intel + notification) on each unlock, fades after 3 days.
+- 🟡 Slay the Sector: its Run-end report names the unlock when Crew Stations is enabled (sister repo PR #30,
+  merged).

@@ -42,6 +42,10 @@
     "flight_deck": {
       "accent": "white with amber stripes",
       "subject": "Hangar bay: one small single-seat fighter craft parked in the middle of the frame on a launch rail, deck crew refuelling it with hoses and loading a missile under its wing, signal batons, bright launch lights."
+    },
+    "simulator": {
+      "accent": "cyan and violet hologram",
+      "subject": "Combat simulator bay: crew reclined in simulation couches with visor helmets, a large glowing holographic battle of tiny starships projected in the middle of the room above them."
     }
   },
   "icons": {

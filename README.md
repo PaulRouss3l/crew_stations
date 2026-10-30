@@ -4,7 +4,7 @@
 
 **Build and upgrade crewed Stations aboard your ships for permanent bonuses.**
 
-*Beta 0.1.0, for Starsector 0.98a.*
+*Beta 0.2.0, for Starsector 0.98a.*
 
 [![Install with TriOS](https://trilink.wispborne.com/badges/install-badge-forthebadge.svg)](https://trilink.wispborne.com/open.html?mod=%7B%22url%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FPaulRouss3l%2Fcrew_stations%2Fmain%2Fcrew_stations.version%22%2C%22id%22%3A%22crew_stations%22%7D)
 
@@ -54,6 +54,25 @@ materials.
 | Reactor Station | — | flux capacity +5/10/15%, flux dissipation +5/10/15% |
 | Damage Control Station | — | hull damage taken −5/10/15%, weapon and engine repairs +25/50/75%, crew lost −25/50/75% |
 | Flight Deck | fighter bays | fighter replacement time −10/20/30%, fighter top speed +5/10/15% |
+| Simulator Bay *(reward)* | — | max combat readiness +5/10/15, CR recovery +15/30/50% |
+
+**Locked Stations.** Station Yard Inc. keeps some Stations for proven customers. They show greyed in The
+Catalogue until you earn them, in that save:
+
+| Station | Unlock |
+|---|---|
+| Missile Silo | destroy an enemy capital ship |
+| Phase Station | hold 1,000,000 credits |
+| Engine Station | carry 5,000 fuel |
+| Simulator Bay | win a Run in Slay the Sector (any save) |
+
+Each unlock comes with a note from Station Yard Inc.'s Customer Relations.
+
+**Simulator Bay, a Slay the Sector reward.** Win a Run in
+[Slay the Sector](https://github.com/PaulRouss3l/slay_the_sector) (any save, any faction) and Station Yard
+Inc. adds the Simulator Bay to its Catalogue: you stream your Descent exploits to boost crew morale. No
+one has to know it was a simulation. Neither mod
+needs the other; Crew Stations simply reads Slay the Sector's progress file.
 
 ## Prices
 

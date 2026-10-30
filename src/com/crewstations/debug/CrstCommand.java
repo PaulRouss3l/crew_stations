@@ -8,6 +8,7 @@ import org.lazywizard.console.Console;
 
 import com.crewstations.station.StationType;
 import com.crewstations.station.Stations;
+import com.crewstations.station.Unlock;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
@@ -23,6 +24,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
  *   crst list                      the selected ship's Stations and slots
  *   crst add <station> <level>     build or set a Station (same checks as a Shipyard, minus cost)
  *   crst clear [station]           remove one Station, or all
+ *   crst unlock [on|off|auto]      locked Stations; on/off forces all offered/locked until the game closes
  */
 public class CrstCommand implements BaseCommand {
 
@@ -44,6 +46,8 @@ public class CrstCommand implements BaseCommand {
                 case "select":
                     if (a.length < 2) return CommandResult.BAD_SYNTAX;
                     return select(a[1]);
+                case "unlock":
+                    return unlock(a.length > 1 ? a[1] : null);
                 default:
                     break;
             }
@@ -66,6 +70,24 @@ public class CrstCommand implements BaseCommand {
         } catch (NumberFormatException e) {
             return CommandResult.BAD_SYNTAX;
         }
+    }
+
+    /** Shows the reward unlocks; on/off forces them offered/locked for this game session, auto reads the files. */
+    private static CommandResult unlock(String mode) {
+        if ("on".equalsIgnoreCase(mode)) Unlock.setOverride(true);
+        else if ("off".equalsIgnoreCase(mode)) Unlock.setOverride(false);
+        else if ("auto".equalsIgnoreCase(mode)) Unlock.setOverride(null);
+        else if (mode != null) return CommandResult.BAD_SYNTAX;
+        Unlock.refresh();
+        StringBuilder sb = new StringBuilder("Override: " + Unlock.override() + ". Slay the Sector enabled: "
+                + (Unlock.stsEnabled() ? "yes" : "no") + ", won Run found: " + (Unlock.stsWon() ? "yes" : "no") + ".");
+        for (StationType t : StationType.values()) {
+            if (t.unlock == Unlock.NONE) continue;
+            sb.append("\n  ").append(t.displayName()).append(": ").append(t.unlock.isMet() ? "offered" : "locked")
+                    .append(" (").append(t.unlock.howTo()).append(")");
+        }
+        Console.showMessage(sb.toString());
+        return CommandResult.SUCCESS;
     }
 
     private static List<FleetMemberAPI> fleet() {

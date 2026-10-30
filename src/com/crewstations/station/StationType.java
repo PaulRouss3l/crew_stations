@@ -31,7 +31,7 @@ public enum StationType {
             down("supplyUse", 5, 10, 15, (s, id, p) -> s.getSuppliesPerMonth().modifyMult(id, less(p))),
             down("fuelUse", 10, 20, 30, (s, id, p) -> s.getFuelUseMod().modifyMult(id, less(p)))),
 
-    ENGINE("engine", Requirement.NONE,
+    ENGINE("engine", Requirement.NONE, Unlock.FUEL,
             up("topSpeed", 5, 10, 15, (s, id, p) -> s.getMaxSpeed().modifyPercent(id, p)),
             up("handling", 15, 30, 50, (s, id, p) -> {
                 s.getAcceleration().modifyPercent(id, p);
@@ -48,12 +48,12 @@ public enum StationType {
             up("ballisticRof", 5, 10, 15, (s, id, p) -> s.getBallisticRoFMult().modifyPercent(id, p)),
             down("ballisticFlux", 5, 10, 15, (s, id, p) -> s.getBallisticWeaponFluxCostMod().modifyMult(id, less(p)))),
 
-    MISSILE("missile", Requirement.MISSILE_SLOT,
+    MISSILE("missile", Requirement.MISSILE_SLOT, Unlock.CAPITAL_KILL,
             up("missileAmmo", 25, 50, 100, (s, id, p) -> s.getMissileAmmoBonus().modifyPercent(id, p)),
             up("missileHealth", 15, 30, 50, (s, id, p) -> s.getMissileHealthBonus().modifyPercent(id, p)),
             up("missileReload", 15, 30, 50, (s, id, p) -> s.getMissileAmmoRegenMult().modifyPercent(id, p))),
 
-    PHASE("phase", Requirement.PHASE,
+    PHASE("phase", Requirement.PHASE, Unlock.CREDITS,
             down("phaseUpkeep", 10, 20, 30, (s, id, p) -> s.getPhaseCloakUpkeepCostBonus().modifyMult(id, less(p))),
             down("phaseCooldown", 10, 20, 30, (s, id, p) -> s.getPhaseCloakCooldownBonus().modifyMult(id, less(p)))),
 
@@ -72,17 +72,29 @@ public enum StationType {
 
     FLIGHT_DECK("flight_deck", Requirement.BAYS,
             down("fighterReplacement", 10, 20, 30, (s, id, p) -> s.getFighterRefitTimeMult().modifyMult(id, less(p))),
-            fighters("fighterSpeed", 5, 10, 15, (s, id, p) -> s.getMaxSpeed().modifyPercent(id, p)));
+            fighters("fighterSpeed", 5, 10, 15, (s, id, p) -> s.getMaxSpeed().modifyPercent(id, p))),
+
+    /** Slay the Sector reward: crews trained in the Descent Relay's combat simulation. */
+    SIMULATOR("simulator", Requirement.NONE, Unlock.STS_FIRST_WIN,
+            up("maxCR", 5, 10, 15, (s, id, p) -> s.getMaxCombatReadiness().modifyFlat(id, p / 100f)),
+            up("crRecovery", 15, 30, 50, (s, id, p) -> s.getBaseCRRecoveryRatePercentPerDay().modifyPercent(id, p)));
 
     public static final int MAX_LEVEL = 3;
 
     public final String id;
     public final Requirement requirement;
+    /** What Station Yard Inc. needs before offering this type (most: nothing). */
+    public final Unlock unlock;
     public final List<StationEffect> effects;
 
     StationType(String id, Requirement requirement, StationEffect... effects) {
+        this(id, requirement, Unlock.NONE, effects);
+    }
+
+    StationType(String id, Requirement requirement, Unlock unlock, StationEffect... effects) {
         this.id = id;
         this.requirement = requirement;
+        this.unlock = unlock;
         this.effects = Collections.unmodifiableList(Arrays.asList(effects));
     }
 

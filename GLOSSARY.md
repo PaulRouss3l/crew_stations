@@ -37,6 +37,10 @@ The in-world megacorp that sells and fits Stations. Its **showroom** is the scre
 upgraded and dismantled, opened from a Shipyard's dock menu. Luxurious and a little smug.
 _Avoid_: crew Station works (the 0.1.0 name), Station yard
 
+**Locked Station**:
+A Station type Station Yard Inc. offers only after an **Unlock**: an achievement in this save (Missile Silo,
+Phase, Engine) or, for the **Reward Station** (Simulator Bay), a won Run in Slay the Sector.
+
 **L3 gate**:
 The rule that L3 needs a Shipyard with Orbital Works or a nanoforge.
 

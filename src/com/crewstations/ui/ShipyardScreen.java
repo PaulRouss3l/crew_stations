@@ -16,6 +16,7 @@ import com.crewstations.shipyard.StationCost;
 import com.crewstations.station.StationEffect;
 import com.crewstations.station.StationType;
 import com.crewstations.station.Stations;
+import com.crewstations.station.Unlock;
 import com.crewstations.util.CSIds;
 import com.crewstations.util.CSLog;
 import com.crewstations.util.CSSettings;
@@ -104,6 +105,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     public ShipyardScreen(MarketAPI market) {
         this.market = market;
         this.maxLevel = Shipyard.maxLevel(market);
+        Unlock.refresh();
         String[] taglines = str("ui_taglines").split("\\|");
         this.tagline = taglines[new Random().nextInt(taglines.length)];
     }
@@ -246,6 +248,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     /** Why {@code type} cannot be built on this ship now (built, rules, Shipyard, cost), or null. */
     private String whyNotBuild(StationType type) {
         if (Stations.read(ship).containsKey(type)) return str("ui_already_built");
+        if (!type.unlock.isMet()) return fmt("ui_locked", type.unlock.howTo());
         String why = whyNot(type, 1);
         return why != null ? why : cannotPay(1);
     }
@@ -255,6 +258,11 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             if (whyNotBuild(t) == null) return t;
         }
         return StationType.values()[0];
+    }
+
+    /** Locked for this ship: not unlocked yet and not already built on it. */
+    private boolean lockedFor(StationType type) {
+        return !type.unlock.isMet() && !Stations.read(ship).containsKey(type);
     }
 
     private static List<FleetMemberAPI> fleet() {
@@ -579,6 +587,12 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
      */
     private void effectTable(CustomPanelAPI p, float x, float y, float w, StationType type, int[] levels, String[] heads,
             int hiCol) {
+        effectTable(p, x, y, w, type, levels, heads, hiCol, false);
+    }
+
+    /** {@code masked}: one row of "???" instead of the effects (locked Stations keep their secrets). */
+    private void effectTable(CustomPanelAPI p, float x, float y, float w, StationType type, int[] levels, String[] heads,
+            int hiCol, boolean masked) {
         float colW = 46f, labelW = w - levels.length * colW;
         TooltipMakerAPI hl = p.createUIElement(labelW, 14f, false);
         para(hl, str("ui_col_effect"), null, DIM, 0f);
@@ -589,14 +603,15 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             put(p, hc, x + labelW + c * colW, y);
         }
         float rowH = labelW < 120f ? 36f : 32f, ry = y + 18f;
-        for (StationEffect fx : type.effects) {
+        List<StationEffect> rows = masked ? type.effects.subList(0, 1) : type.effects;
+        for (StationEffect fx : rows) {
             TooltipMakerAPI l = p.createUIElement(labelW - 6f, rowH, false);
-            para(l, StationType.effectName(fx), null, hiCol < 0 ? DIM : TEXT, 0f);
+            para(l, masked ? str("ui_mystery") : StationType.effectName(fx), null, hiCol < 0 ? DIM : TEXT, 0f);
             put(p, l, x, ry);
             for (int c = 0; c < levels.length; c++) {
                 TooltipMakerAPI v = p.createUIElement(colW, rowH, false);
-                para(v, type.valueText(fx, levels[c]), null, c == hiCol ? Misc.getHighlightColor() : DIM, 0f)
-                        .setAlignment(Alignment.RMID);
+                para(v, masked ? str("ui_mystery") : type.valueText(fx, levels[c]), null,
+                        c == hiCol ? Misc.getHighlightColor() : DIM, 0f).setAlignment(Alignment.RMID);
                 put(p, v, x + labelW + c * colW, ry);
             }
             ry += rowH;
@@ -625,9 +640,10 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
         // Category tabs, from the Station types themselves.
         Set<String> cats = new LinkedHashSet<String>();
-        for (StationType t : StationType.values()) cats.add(categoryOf(t));
+        StationType[] all = StationType.values();
+        for (StationType t : all) cats.add(categoryOf(t));
         TooltipMakerAPI tabs = content.createUIElement(w, 28f, false);
-        ButtonAPI prev = button(tabs, fmt("ui_tab_all", "" + StationType.values().length), "cat:",
+        ButtonAPI prev = button(tabs, fmt("ui_tab_all", "" + all.length), "cat:",
                 category == null ? TEXT : DIM, category == null ? BAND : GROUND, 90f, 24f, false);
         prev.setEnabled(!locked);
         for (String c : cats) {
@@ -641,10 +657,11 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         put(content, tabs, x0, y0);
 
         List<StationType> shown = new ArrayList<StationType>();
-        for (StationType t : StationType.values()) {
+        for (StationType t : all) {
             if (category == null || category.equals(categoryOf(t))) shown.add(t);
         }
-        int cols = 5;
+        // Two rows: as many columns as half the shown types, at least five.
+        int cols = Math.max(5, (shown.size() + 1) / 2);
         float ty = y0 + 36f, gridH = HEIGHT - FOOTER_H - PAD - ty;
         float tw = (w - (cols - 1) * 10f) / cols, th = (gridH - 10f) / 2f;
         for (int i = 0; i < shown.size(); i++) {
@@ -656,7 +673,8 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     private void pickerTile(StationType type, float x, float y, float w, float h, boolean locked) {
         Integer built = Stations.read(ship).get(type);
         String why = built != null ? null : whyNotBuild(type);
-        boolean fits = built != null || type.requirement.isMet(ship.getVariant());
+        boolean lock = lockedFor(type);
+        boolean fits = built != null || (!lock && type.requirement.isMet(ship.getVariant()));
         boolean sel = type == pickedType;
         Painter tp = new Painter(this);
         if (!locked) {
@@ -682,10 +700,14 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         if (built != null) {
             status = fmt("ui_installed", "" + built);
             sc = GREEN;
+        } else if (lock) {
+            // How to unlock it is in the detail panel; the tile only says it is locked.
+            status = str("ui_locked_tile");
+            sc = DIM;
         } else if (why != null) {
-            // Rule reasons are short; a cost reason is summarised here and spelled out in the detail panel.
-            String rule = whyNot(type, 1);
-            status = rule != null ? rule : str("ui_cant_afford");
+            // One short word on the tile; the detail panel spells out the reason.
+            if (!type.requirement.isMet(ship.getVariant())) status = str("ui_incompatible_tile");
+            else status = whyNot(type, 1) != null ? str("ui_unavailable_tile") : str("ui_cant_afford");
             sc = Misc.getNegativeHighlightColor();
         } else {
             status = Misc.getDGSCredits(StationCost.of(ship.getHullSpec().getHullSize(), 1).credits);
@@ -698,23 +720,41 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
     private void buildDetail(Painter paint, float x, float y, float w, float h) {
         StationType type = pickedType != null ? pickedType : firstBuildable();
-        paint.fill(x, y, w, h, PANEL).line(x, y, x, y + h, LINE).fill(x + 1, y, w - 1, 92f, BAND);
+        // Locked: only the name, dimmed art and how to unlock it. Everything else stays a mystery.
+        boolean lock = lockedFor(type);
+        paint.fill(x, y, w, h, PANEL).line(x, y, x, y + h, LINE).fill(x + 1, y, w - 1, 112f, BAND);
         paint.fill(x + PAD, y + 14f, 64f, 64f, GROUND).border(x + PAD, y + 14f, 64f, 64f, CYAN);
-        paint.sprite(type.sprite(), x + PAD + 1f, y + 15f, 62f, 62f, null, false, true);
-        TooltipMakerAPI head = content.createUIElement(w - 64f - 3 * PAD + 4f, 70f, false);
+        paint.sprite(type.sprite(), x + PAD + 1f, y + 15f, 62f, 62f, lock ? ART_OFF : null, false, true);
+        TooltipMakerAPI head = content.createUIElement(w - 64f - 3 * PAD + 4f, 96f, false);
         para(head, type.displayName().toUpperCase(), Fonts.ORBITRON_12, TEXT, 0f);
-        para(head, description(type), null, DIM, 4f);
+        para(head, lock ? str("ui_mystery") : description(type), null, DIM, 4f);
         put(content, head, x + PAD + 64f + 12f, y + 16f);
 
-        float iy = y + 108f, iw = w - 2 * PAD;
+        float iy = y + 126f, iw = w - 2 * PAD;
         effectTable(content, x + PAD, iy, iw, type, new int[] { 1, 2, 3 },
-                new String[] { fmt("ui_col_level", "1"), fmt("ui_col_level", "2"), fmt("ui_col_level", "3") }, 0);
-        iy += 18f + type.effects.size() * 32f + 10f;
+                new String[] { fmt("ui_col_level", "1"), fmt("ui_col_level", "2"), fmt("ui_col_level", "3") }, 0, lock);
+        iy += 18f + (lock ? 1 : type.effects.size()) * 32f + 10f;
 
-        TooltipMakerAPI info = content.createUIElement(iw, 110f, false);
+        TooltipMakerAPI info = content.createUIElement(iw, 150f, false);
+        if (lock) {
+            para(info, str("ui_unlock_head"), null, DIM, 0f);
+            para(info, type.unlock.howTo(), null, Misc.getNegativeHighlightColor(), 2f);
+            put(content, info, x + PAD, iy);
+            TooltipMakerAPI btn = content.createUIElement(iw, 36f, false);
+            button(btn, str("ui_locked_tile"), "build:" + type.id, Color.WHITE, PRIMARY_BG, iw, 34f, true)
+                    .setEnabled(false);
+            put(content, btn, x + PAD, y + h - 48f);
+            return;
+        }
         para(info, str("ui_requires"), null, DIM, 0f);
         String req = type.requirement.reason();
         para(info, req == null ? str("ui_req_none") : capitalize(req), null, TEXT, 2f);
+        if (type.unlock != Unlock.NONE) {
+            boolean met = type.unlock.isMet();
+            para(info, str("ui_unlock_head"), null, DIM, 10f);
+            para(info, met ? fmt("ui_unlocked", type.unlock.howTo()) : type.unlock.howTo(), null,
+                    met ? GREEN : Misc.getNegativeHighlightColor(), 2f);
+        }
         para(info, str("ui_crew_head"), null, DIM, 10f);
         float base = ship.getHullSpec().getMinCrew();
         float now = ship.getMinCrew();
