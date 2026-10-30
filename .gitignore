@@ -1,0 +1,9 @@
+/bin/
+/jars/*.jar
+*.log
+.DS_Store
+.claude/
+/crew-stations
+/build/
+/dist/
+__pycache__/

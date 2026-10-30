@@ -1,0 +1,13 @@
+{
+  "id": "crew_stations",
+  "name": "Crew Stations",
+  "author": "Ubik",
+  "utility": false,
+  "version": { "major": "0", "minor": "0", "patch": "1" },
+  "description": "Crew Stations. Work in progress.",
+  "gameVersion": "0.98a-RC8",
+  "jars": [ "jars/CrewStations.jar" ],
+  "modPlugin": "com.crewstations.CrewStationsModPlugin",
+  "dependencies": [
+  ]
+}

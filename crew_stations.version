@@ -1,0 +1,11 @@
+{
+    "masterVersionFile": "https://raw.githubusercontent.com/PaulRouss3l/crew_stations/main/crew_stations.version",
+    "modName": "Crew Stations",
+    "modThreadId": "",
+    "directDownloadURL": "https://github.com/PaulRouss3l/crew_stations/releases/download/v0.0.1/crew-stations-0.0.1.zip",
+    "modVersion": {
+        "major": 0,
+        "minor": 0,
+        "patch": 1
+    }
+}
