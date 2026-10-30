@@ -698,9 +698,9 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             status = str("ui_locked_tile");
             sc = DIM;
         } else if (why != null) {
-            // Rule reasons are short; a cost reason is summarised here and spelled out in the detail panel.
-            String rule = whyNot(type, 1);
-            status = rule != null ? rule : str("ui_cant_afford");
+            // One short word on the tile; the detail panel spells out the reason.
+            if (!type.requirement.isMet(ship.getVariant())) status = str("ui_incompatible_tile");
+            else status = whyNot(type, 1) != null ? str("ui_unavailable_tile") : str("ui_cant_afford");
             sc = Misc.getNegativeHighlightColor();
         } else {
             status = Misc.getDGSCredits(StationCost.of(ship.getHullSpec().getHullSize(), 1).credits);

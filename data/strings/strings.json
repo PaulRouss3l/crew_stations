@@ -162,6 +162,8 @@
 		"intel_fuel": "With that much fuel aboard, you clearly intend to go places. May we suggest our Engine Station, for captains who treat the speed limit as a suggestion? It is now in The Catalogue.",
 		"intel_sts_first_win": "Word of your triumph in the Descent has reached us. Exploits like yours deserve an audience: the Simulator Bay, for streaming them to a grateful crew, is now in The Catalogue.",
 		"intel_signoff": "Customer Relations, Station Yard Inc.",
-		"ui_locked_tile": "Locked"
+		"ui_locked_tile": "Locked",
+		"ui_incompatible_tile": "Not compatible",
+		"ui_unavailable_tile": "Unavailable"
 	}
 }
