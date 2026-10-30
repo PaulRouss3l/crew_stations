@@ -9,7 +9,7 @@ Handy console commands: `addcredits 10000000`, `additem heavy_machinery 2000` (a
 
 ## 1. Where the option appears
 - [ ] Dock at a market with **Heavy Industry** (e.g. a Hegemony or Persean League world): market menu shows
-      **Visit the shipyard's crew Station works**.
+      **Visit the Station Yard Inc. showroom**.
 - [ ] Dock at a market **without** heavy industry: no option.
 - [ ] Market with **Orbital Works** (e.g. Chicomoztoc) or a nanoforge: footer says "up to level 3".
       Plain Heavy Industry: "up to level 2", and Upgrade to L3 is disabled with the reason.
@@ -17,7 +17,7 @@ Handy console commands: `addcredits 10000000`, `additem heavy_machinery 2000` (a
 - [ ] Your own colony with Heavy Industry: option shown.
 
 ## 2. Screen layout (compare with the design canvas)
-- [ ] Opaque dark panel: the market text no longer shows through. Header: "CREW STATION WORKS", market and
+- [ ] Opaque dark panel: the market text no longer shows through. Header: "STATION YARD INC.", market showroom and a slogan, market and
       industry, CREDITS and MAX LEVEL chips, Close.
 - [ ] Fleet rows: hull thumbnail, name, class, slot pips (yellow = used). Flagship selected (cyan frame).
       Automated ships greyed with "AUTO". Clicking anywhere on a row selects it; rows light up under the mouse.

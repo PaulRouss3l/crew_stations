@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Map;
 import java.util.Set;
 
@@ -76,6 +77,8 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
     private final MarketAPI market;
     private final int maxLevel;
+    /** Station Yard Inc. slogan for this visit, one of strings.json ui_taglines. */
+    private final String tagline;
 
     private CustomPanelAPI root;
     private CustomPanelAPI content;
@@ -101,6 +104,8 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     public ShipyardScreen(MarketAPI market) {
         this.market = market;
         this.maxLevel = Shipyard.maxLevel(market);
+        String[] taglines = str("ui_taglines").split("\\|");
+        this.tagline = taglines[new Random().nextInt(taglines.length)];
     }
 
     private final CustomUIPanelPlugin plugin = new Painter(this) {
@@ -306,8 +311,9 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     private void buildHeader(Painter paint) {
         paint.fill(0, 0, WIDTH, HEADER_H, PANEL).line(0, HEADER_H, WIDTH, HEADER_H, LINE);
         TooltipMakerAPI title = content.createUIElement(560f, HEADER_H - 12f, false);
-        para(title, str("ui_works_title"), Fonts.ORBITRON_20AABOLD, TEXT, 0f);
-        para(title, fmt("ui_subtitle", market.getName(), Shipyard.capSource(market)), null, DIM, 2f);
+        para(title, str("ui_yard_title"), Fonts.ORBITRON_20AABOLD, TEXT, 0f);
+        // Plain para: taglines may hold a literal %.
+        para(title, fmt("ui_subtitle", market.getName()) + " - " + tagline, null, DIM, 2f);
         put(content, title, PAD, 8f);
 
         float x = WIDTH - PAD - 100f;

@@ -14,7 +14,7 @@ One of the ten kinds of Station: Shield, Logistics, Engine, Energy, Ballistic, M
 Damage control, Flight deck.
 
 **Level**:
-A Station's rank, L1 Basic, L2 Advanced, L3 Elite. Raised one at a time by an Upgrade.
+A Station's rank, L1 Standard, L2 Deluxe, L3 Platinum. Raised one at a time by an Upgrade.
 _Avoid_: tier, rank
 
 **Slot**:
@@ -31,6 +31,11 @@ A Station whose requirement the ship no longer meets (e.g. no shields after a re
 **Shipyard**:
 A market where Stations can be built: functional `heavyindustry`-tagged industry, not disrupted, owner not hostile.
 _Avoid_: dockyard, station (a space station is a market location, not a Station)
+
+**Station Yard Inc.**:
+The in-world megacorp that sells and fits Stations. Its **showroom** is the screen where Stations are built,
+upgraded and dismantled, opened from a Shipyard's dock menu. Luxurious and a little smug.
+_Avoid_: crew Station works (the 0.1.0 name), Station yard
 
 **L3 gate**:
 The rule that L3 needs a Shipyard with Orbital Works or a nanoforge.
