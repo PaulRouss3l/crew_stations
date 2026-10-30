@@ -44,7 +44,8 @@ adapted for **Linux** and Starsector **0.98a** (bundled Zulu JDK 17).
 - **Build only:** `Ctrl+Shift+B`, or `./build.sh` (needs `python3` + JDK 17).
 - **Run with debugging:** Run panel → **Debug Starsector** (F5). Builds, launches
   the game, attaches to `:5005`. Set breakpoints in `src/` and they hit.
-- **Run without debugging:** `./run.sh`.
+- **Run without debugging:** `./run.sh`. It renders on the NVIDIA card (PRIME offload) because the Intel
+  iGPU hangs the desktop; `CS_IGPU=1 ./run.sh` keeps the iGPU.
 
 ## Adjusting paths
 
