@@ -6,7 +6,7 @@
 ## 1. Locked
 - [ ] With no Slay the Sector win (`crst unlock off`, or rename
       `saves/common/slay_the_sector_meta.json*` out of the way): The Catalogue shows **ALL 10**, no *Reward* tab, five columns. `crst add simulator 1`
-      refuses ("not offered yet"). `crst unlock` reports *found: no, offered: no*.
+      refuses ("not offered yet"). `crst unlock` reports *offered: no*.
 
 ## 2. Unlocked
 - [ ] With a Slay the Sector win in that file (or `crst unlock on`, or `"crst_unlockAll": true` in settings.json): the log shows
