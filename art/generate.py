@@ -17,14 +17,14 @@ HERE = Path(__file__).resolve().parent
 RAW = HERE / "raw"
 
 
-def workflow(prompt, size, seed):
+def workflow(prompt, width, height, seed):
     return {
         "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "z_image_turbo_nvfp4.safetensors", "weight_dtype": "default"}},
         "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen_3_4b_fp8_mixed.safetensors", "type": "lumina2"}},
         "3": {"class_type": "VAELoader", "inputs": {"vae_name": "z_image_ae.safetensors"}},
         "4": {"class_type": "CLIPTextEncode", "inputs": {"text": prompt, "clip": ["2", 0]}},
         "5": {"class_type": "ConditioningZeroOut", "inputs": {"conditioning": ["4", 0]}},
-        "6": {"class_type": "EmptySD3LatentImage", "inputs": {"width": size, "height": size, "batch_size": 1}},
+        "6": {"class_type": "EmptySD3LatentImage", "inputs": {"width": width, "height": height, "batch_size": 1}},
         "7": {"class_type": "ModelSamplingAuraFlow", "inputs": {"model": ["1", 0], "shift": 3}},
         "8": {"class_type": "KSampler", "inputs": {
             "model": ["7", 0], "positive": ["4", 0], "negative": ["5", 0], "latent_image": ["6", 0],
@@ -69,11 +69,13 @@ def main():
         st = cfg["stations"].get(name) or cfg.get("icons", {}).get(name)
         if st is None:
             sys.exit(f"unknown station {name}")
-        prompt = cfg["style"].format(accent=st["accent"]) + " " + st["subject"]
+        # Entries with their own "prompt" (the forum banner) skip the shared Station style.
+        prompt = st.get("prompt") or cfg["style"].format(accent=st["accent"]) + " " + st["subject"]
+        width, height = st.get("w", cfg["size"]), st.get("h", cfg["size"])
         for i in range(a.seeds):
             seed = (a.seed + i) if a.seed is not None else random.randrange(2**31)
             t = time.time()
-            png = run(a.url, workflow(prompt, cfg["size"], seed))
+            png = run(a.url, workflow(prompt, width, height, seed))
             out = RAW / f"{name}_{seed}.png"
             out.write_bytes(png)
             print(f"{out.relative_to(HERE.parent)}  {time.time() - t:.1f}s", flush=True)

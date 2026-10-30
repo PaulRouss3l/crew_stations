@@ -48,6 +48,11 @@
     "hullmod": {
       "accent": "warm orange",
       "subject": "Close-up icon framing: two crew in work jumpsuits and headsets at a glowing console, one pointing, faces lit by the screen, bold silhouettes and strong contrast so it still reads at 32 pixels, simple background."
+    },
+    "banner": {
+      "w": 1600,
+      "h": 640,
+      "prompt": "Wide cinematic concept art, cutaway cross-section of a worn industrial starship hull seen from the side, a row of brightly lit crewed compartments inside it like a dollhouse: a cyan shield control room, an orange engine room with a glowing thruster, a blue-white reactor core room, a red missile magazine, a hangar with a small fighter; tiny crew in work jumpsuits busy in every room, cables and pipes between rooms. Painterly digital painting in the style of gritty 1990s space-strategy concept art, muted steel-grey hull, dark starfield background, deep black empty space along the bottom quarter of the image. No text, no logos, no UI."
     }
   }
 }

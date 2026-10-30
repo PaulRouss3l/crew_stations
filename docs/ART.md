@@ -31,6 +31,12 @@ subject there.
 5. Hullmod icon: `python3 art/generate.py hullmod --seeds 4`, then `python3 art/process.py icon <seed>` →
    `graphics/crew_stations/hullmods/crew_stations.png` (32×32, cropped, sharpened, brightened).
 
+## Forum banner
+
+`docs/assets/banner.png`, 1600×640 like Slay the Sector's: `python3 art/generate.py banner --seeds 4`, pick one,
+then `python3 art/banner.py <seed>` adds the Orbitron title, the subtitle and the frame. Not shipped in the mod
+zip.
+
 ## Style
 
 Painterly concept art of a cramped crewed compartment on a worn industrial starship: muted steel grey and dark
