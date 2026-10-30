@@ -136,7 +136,8 @@ with Level and effects, inactive ones greyed.
 - 10 Station illustrations: one 512×512 image per Station (AI-generated with the local ComfyUI, Z-Image
   Turbo), cropped by the screen to the card banner, picker tile and detail panel. Interior shots of the crewed
   compartment, worn industrial sci-fi, muted palette, one accent colour per type. Details: `ART.md`.
-- Hullmod icon (32×32): script-drawn glyph in vanilla's flat icon style.
+- Hullmod icon (32×32): a small painting like vanilla's hullmod icons, generated the same way, then cropped,
+  downscaled and sharpened (`art/process.py icon`).
 
 ## Configuration
 

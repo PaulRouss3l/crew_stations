@@ -66,7 +66,7 @@ def main():
     names = a.stations or list(cfg["stations"])
     RAW.mkdir(exist_ok=True)
     for name in names:
-        st = cfg["stations"].get(name)
+        st = cfg["stations"].get(name) or cfg.get("icons", {}).get(name)
         if st is None:
             sys.exit(f"unknown station {name}")
         prompt = cfg["style"].format(accent=st["accent"]) + " " + st["subject"]

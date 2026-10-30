@@ -50,9 +50,10 @@ In-game checklist: `S2_SMOKE_TEST.md`.
 
 Pipeline and prompts: `ART.md`.
 
-- 🟡 10 Station illustrations (ComfyUI, Z-Image Turbo), 512×512, one square image cropped per box.
-- 🟡 Screen draws Station art cropped to fill (card banner, picker tile, detail panel).
-- ⬜ Hullmod icon (script-drawn glyph, 32×32).
+- ✅ 10 Station illustrations (ComfyUI, Z-Image Turbo), 512×512, one square image cropped per box.
+- ✅ Screen draws Station art cropped to fill (card banner, picker tile, detail panel).
+- 🟡 Hullmod icon (32×32, painted like vanilla icons: generated, then cropped, downscaled and sharpened).
+- ✅ Station art verified in game 2026-10-30.
 
 ## S4 — Polish + release
 

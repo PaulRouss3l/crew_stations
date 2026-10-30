@@ -2,13 +2,14 @@
 """Preview and install Station illustrations. See docs/ART.md.
 
   python3 art/process.py preview [out.png]   contact sheet of art/raw/*.png with the in-game crops at 2x
+  python3 art/process.py icon <seed>     art/raw/hullmod_<seed>.png -> graphics/crew_stations/hullmods/crew_stations.png (32x32)
   python3 art/process.py install <station> <seed>
                                             art/raw/<station>_<seed>.png -> graphics/crew_stations/stations/<station>.png (512x512)
 """
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
 
 HERE = Path(__file__).resolve().parent
 RAW = HERE / "raw"
@@ -56,9 +57,25 @@ def install(station, seed):
     print(f"{src.name} -> {dst.relative_to(HERE.parent)}")
 
 
+def icon(seed):
+    """Hullmod icon: centre crop, 32x32, sharpened and brightened to read like vanilla's painted icons."""
+    src = RAW / f"hullmod_{seed}.png"
+    img = Image.open(src).convert("RGB")
+    w = img.size[0]
+    c = int(w * 0.15)
+    img = img.crop((c, c, w - c, w - c)).resize((32, 32), Image.LANCZOS).filter(ImageFilter.UnsharpMask(1, 80, 2))
+    img = ImageEnhance.Brightness(ImageEnhance.Contrast(img).enhance(1.15)).enhance(1.2)
+    dst = HERE.parent / "graphics" / "crew_stations" / "hullmods" / "crew_stations.png"
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    img.save(dst, optimize=True)
+    print(f"{src.name} -> {dst.relative_to(HERE.parent)}")
+
+
 if __name__ == "__main__":
     if len(sys.argv) >= 2 and sys.argv[1] == "preview":
         preview(sys.argv[2] if len(sys.argv) > 2 else str(HERE / "raw" / "preview.png"))
+    elif len(sys.argv) == 3 and sys.argv[1] == "icon":
+        icon(sys.argv[2])
     elif len(sys.argv) == 4 and sys.argv[1] == "install":
         install(sys.argv[2], sys.argv[3])
     else:

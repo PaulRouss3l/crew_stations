@@ -43,5 +43,11 @@
       "accent": "white with amber stripes",
       "subject": "Hangar bay: one small single-seat fighter craft parked in the middle of the frame on a launch rail, deck crew refuelling it with hoses and loading a missile under its wing, signal batons, bright launch lights."
     }
+  },
+  "icons": {
+    "hullmod": {
+      "accent": "warm orange",
+      "subject": "Close-up icon framing: two crew in work jumpsuits and headsets at a glowing console, one pointing, faces lit by the screen, bold silhouettes and strong contrast so it still reads at 32 pixels, simple background."
+    }
   }
 }

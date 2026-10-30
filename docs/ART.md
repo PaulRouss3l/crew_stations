@@ -28,6 +28,8 @@ subject there.
 3. `python3 art/process.py preview` → `art/raw/preview.png`: each image with its card banner and tile crops
    at 2× in-game size.
 4. `python3 art/process.py install <station> <seed>` → resized 512×512 into `graphics/`.
+5. Hullmod icon: `python3 art/generate.py hullmod --seeds 4`, then `python3 art/process.py icon <seed>` →
+   `graphics/crew_stations/hullmods/crew_stations.png` (32×32, cropped, sharpened, brightened).
 
 ## Style
 
