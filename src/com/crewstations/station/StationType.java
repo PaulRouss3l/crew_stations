@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.crewstations.util.CSIds;
+import com.crewstations.util.CSSettings;
 import com.fs.starfarer.api.Global;
 
 /**
@@ -87,6 +88,27 @@ public enum StationType {
 
     public String displayName() {
         return Global.getSettings().getString(CSIds.STRINGS, "name_" + id);
+    }
+
+    /** Station art: settings.json graphics.crst_stations.<id> (vanilla hullmod icons until S3). */
+    public String sprite() {
+        return Global.getSettings().getSpriteName("crst_stations", id);
+    }
+
+    /** Percent of {@code fx} at {@code level}, from settings or the code default. */
+    public float value(StationEffect fx, int level) {
+        return CSSettings.effect(id, fx.key, level, fx.defaults);
+    }
+
+    /** "+15%" or "-10%". */
+    public String valueText(StationEffect fx, int level) {
+        float v = value(fx, level);
+        String n = v == Math.round(v) ? String.valueOf(Math.round(v)) : String.valueOf(v);
+        return (fx.reduces ? "-" : "+") + n + "%";
+    }
+
+    public static String effectName(StationEffect fx) {
+        return Global.getSettings().getString(CSIds.STRINGS, "effect_" + fx.key);
     }
 
     public static String levelName(int level) {

@@ -1,4 +1,6 @@
 {
+	"ruleCommandPackages": ["com.crewstations.rulecmd"],
+
 	# Station slots by hull size: frigate, destroyer, cruiser, capital.
 	"crst_slots": [1, 2, 3, 4],
 	# Skeleton and max crew added per Station Level, in percent.
@@ -51,7 +53,7 @@
 		}
 	},
 
-	# Costs (used from S2). Credits and commodities per Level (L1, L2, L3), times the hull multiplier.
+	# Costs. Credits and commodities per Level (L1, L2, L3), times the hull multiplier.
 	"crst_creditsPerLevel": [150000, 400000, 900000],
 	"crst_heavyMachineryPerLevel": [100, 200, 300],
 	"crst_metalsPerLevel": [0, 500, 0],
@@ -61,5 +63,21 @@
 	# Share of credits paid that Dismantle gives back.
 	"crst_refundFraction": 0.25,
 	# L3 needs Orbital Works or a nanoforge.
-	"crst_l3Gate": true
+	"crst_l3Gate": true,
+
+	"graphics": {
+		# Station art. Placeholders (vanilla hullmod icons) until S3.
+		"crst_stations": {
+			"shield": "graphics/hullmods/hardened_shields.png",
+			"logistics": "graphics/hullmods/efficiency.png",
+			"engine": "graphics/hullmods/augmented_engines.png",
+			"energy": "graphics/hullmods/advanced_optics.png",
+			"ballistic": "graphics/hullmods/ballistic_rangefinder.png",
+			"missile": "graphics/hullmods/expanded_missile_racks.png",
+			"phase": "graphics/hullmods/phase_field.png",
+			"reactor": "graphics/hullmods/flux_distributor.png",
+			"damage_control": "graphics/hullmods/blast_doors.png",
+			"flight_deck": "graphics/hullmods/expanded_deck_crew.png"
+		}
+	}
 }
