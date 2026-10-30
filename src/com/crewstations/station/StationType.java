@@ -72,17 +72,29 @@ public enum StationType {
 
     FLIGHT_DECK("flight_deck", Requirement.BAYS,
             down("fighterReplacement", 10, 20, 30, (s, id, p) -> s.getFighterRefitTimeMult().modifyMult(id, less(p))),
-            fighters("fighterSpeed", 5, 10, 15, (s, id, p) -> s.getMaxSpeed().modifyPercent(id, p)));
+            fighters("fighterSpeed", 5, 10, 15, (s, id, p) -> s.getMaxSpeed().modifyPercent(id, p))),
+
+    /** Slay the Sector reward: crews trained in the Descent Relay's combat simulation. */
+    SIMULATOR("simulator", Requirement.NONE, Unlock.STS_FIRST_WIN,
+            up("maxCR", 5, 10, 15, (s, id, p) -> s.getMaxCombatReadiness().modifyFlat(id, p / 100f)),
+            up("crRecovery", 15, 30, 50, (s, id, p) -> s.getBaseCRRecoveryRatePercentPerDay().modifyPercent(id, p)));
 
     public static final int MAX_LEVEL = 3;
 
     public final String id;
     public final Requirement requirement;
+    /** What Station Yard Inc. needs before offering this type (most: nothing). */
+    public final Unlock unlock;
     public final List<StationEffect> effects;
 
     StationType(String id, Requirement requirement, StationEffect... effects) {
+        this(id, requirement, Unlock.NONE, effects);
+    }
+
+    StationType(String id, Requirement requirement, Unlock unlock, StationEffect... effects) {
         this.id = id;
         this.requirement = requirement;
+        this.unlock = unlock;
         this.effects = Collections.unmodifiableList(Arrays.asList(effects));
     }
 

@@ -50,6 +50,11 @@
 		"flight_deck": {
 			"fighterReplacement": [10, 20, 30],
 			"fighterSpeed": [5, 10, 15]
+		},
+		# Slay the Sector reward (offered after a won Run there). maxCR in CR points.
+		"simulator": {
+			"maxCR": [5, 10, 15],
+			"crRecovery": [15, 30, 50]
 		}
 	},
 
@@ -64,6 +69,8 @@
 	"crst_refundFraction": 0.25,
 	# L3 needs Orbital Works or a nanoforge.
 	"crst_l3Gate": true,
+	# Offer reward Stations (Simulator Bay) without their unlock. For testing.
+	"crst_unlockAll": false,
 
 	"graphics": {
 		# Station art, 512x512, cropped to each box by the screen (docs/ART.md).
@@ -77,7 +84,8 @@
 			"phase": "graphics/crew_stations/stations/phase.png",
 			"reactor": "graphics/crew_stations/stations/reactor.png",
 			"damage_control": "graphics/crew_stations/stations/damage_control.png",
-			"flight_deck": "graphics/crew_stations/stations/flight_deck.png"
+			"flight_deck": "graphics/crew_stations/stations/flight_deck.png",
+			"simulator": "graphics/crew_stations/stations/simulator.png"
 		}
 	}
 }

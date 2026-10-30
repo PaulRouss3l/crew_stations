@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 (beta)
+
+- **Simulator Bay**, a new reward Station: crews trained in Slay the Sector's Descent Relay simulation. Max
+  combat readiness +5/10/15, CR recovery +15/30/50%. Station Yard Inc. offers it once you have won a Run in
+  Slay the Sector (any save, any faction); it then appears in The Catalogue under *Reward*. Neither mod
+  needs the other.
+
 ## 0.1.1 (beta)
 
 - **Station Yard Inc.:** the shop is now run by a luxurious megacorp. The dock menu offers *Visit the Station

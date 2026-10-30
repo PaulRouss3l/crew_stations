@@ -1,5 +1,6 @@
 package com.crewstations;
 
+import com.crewstations.station.Unlock;
 import com.crewstations.util.CSLog;
 import com.crewstations.util.CSSettings;
 import com.fs.starfarer.api.BaseModPlugin;
@@ -19,5 +20,6 @@ public class CrewStationsModPlugin extends BaseModPlugin {
     @Override
     public void onGameLoad(boolean newGame) {
         CSLog.info("game loaded (newGame=" + newGame + ")");
+        Unlock.refresh();
     }
 }

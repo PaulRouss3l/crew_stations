@@ -26,6 +26,8 @@ public final class CSSettings {
     private static float[] hullCostMult = {0.5f, 1f, 2f, 4f};
     private static float refundFraction = 0.25f;
     private static boolean l3Gate = true;
+    /** Offers every reward Station without its unlock (testing). */
+    private static boolean unlockAll = false;
     /** "type.effect" -> percent at L1, L2, L3. Only primitives and strings: safe as static state. */
     private static final Map<String, float[]> effects = new HashMap<String, float[]>();
 
@@ -39,6 +41,7 @@ public final class CSSettings {
         hullCostMult = floats("crst_hullCostMult", hullCostMult);
         refundFraction = f("crst_refundFraction", refundFraction);
         l3Gate = b("crst_l3Gate", l3Gate);
+        unlockAll = b("crst_unlockAll", unlockAll);
         effects.clear();
         try {
             JSONObject all = Global.getSettings().getJSONObject("crst_effects");
@@ -74,6 +77,7 @@ public final class CSSettings {
     public static int rareMetals(int level) { return at(rareMetalsPerLevel, level); }
     public static float refundFraction() { return refundFraction; }
     /** True when L3 needs Orbital Works or a nanoforge. */
+    public static boolean unlockAll() { return unlockAll; }
     public static boolean l3Gate() { return l3Gate; }
 
     /** Cost multiplier for this hull size (credits and commodities); 0 for fighters. */

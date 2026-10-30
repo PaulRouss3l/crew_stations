@@ -140,6 +140,13 @@
 		"desc_damage_control": "Welders on call, mid-battle. Hazard pay included.",
 		"desc_flight_deck": "Deck crews who turn fighters around before the pilot finishes their coffee.",
 		"ui_cant_afford": "Out of budget",
-		"ui_taglines": "Crew comfort is a weapon system.|Serving the Sector since before the Collapse. Probably.|Every Station fitted by people who read the manual.|Now 25% less likely to vent into space.|You break it, you bought it. Also if you didn't.|Financing not available in your sector.|Satisfaction guaranteed or your crew back."
+		"ui_taglines": "Crew comfort is a weapon system.|Serving the Sector since before the Collapse. Probably.|Every Station fitted by people who read the manual.|Now 25% less likely to vent into space.|You break it, you bought it. Also if you didn't.|Financing not available in your sector.|Satisfaction guaranteed or your crew back.",
+		"name_simulator": "Simulator Bay",
+		"effect_maxCR": "Maximum combat readiness",
+		"effect_crRecovery": "Combat readiness recovery",
+		"category_simulator": "reward",
+		"cat_reward": "Reward",
+		"desc_simulator": "Crews trained in the Descent Relay's simulation. They have died a thousand times and remember every one.",
+		"ui_unlock_sts": "Slay the Sector reward: offered once you have won a Run in the Descent."
 	}
 }

@@ -16,6 +16,7 @@ import com.crewstations.shipyard.StationCost;
 import com.crewstations.station.StationEffect;
 import com.crewstations.station.StationType;
 import com.crewstations.station.Stations;
+import com.crewstations.station.Unlock;
 import com.crewstations.util.CSIds;
 import com.crewstations.util.CSLog;
 import com.crewstations.util.CSSettings;
@@ -104,6 +105,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     public ShipyardScreen(MarketAPI market) {
         this.market = market;
         this.maxLevel = Shipyard.maxLevel(market);
+        Unlock.refresh();
         String[] taglines = str("ui_taglines").split("\\|");
         this.tagline = taglines[new Random().nextInt(taglines.length)];
     }
@@ -161,7 +163,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         } else if (id.startsWith("cat:")) {
             category = id.length() > 4 ? id.substring(4) : null;
             if (category != null && (pickedType == null || !category.equals(categoryOf(pickedType)))) {
-                for (StationType t : StationType.values()) {
+                for (StationType t : offered()) {
                     if (category.equals(categoryOf(t))) {
                         pickedType = t;
                         break;
@@ -251,10 +253,21 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     }
 
     private StationType firstBuildable() {
-        for (StationType t : StationType.values()) {
+        List<StationType> offered = offered();
+        for (StationType t : offered) {
             if (whyNotBuild(t) == null) return t;
         }
-        return StationType.values()[0];
+        return offered.get(0);
+    }
+
+    /** Types Station Yard Inc. shows this ship: unlocked ones, plus any already built. */
+    private List<StationType> offered() {
+        Map<StationType, Integer> built = Stations.read(ship);
+        List<StationType> out = new ArrayList<StationType>();
+        for (StationType t : StationType.values()) {
+            if (t.unlock.isMet() || built.containsKey(t)) out.add(t);
+        }
+        return out;
     }
 
     private static List<FleetMemberAPI> fleet() {
@@ -625,9 +638,10 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
         // Category tabs, from the Station types themselves.
         Set<String> cats = new LinkedHashSet<String>();
-        for (StationType t : StationType.values()) cats.add(categoryOf(t));
+        List<StationType> offered = offered();
+        for (StationType t : offered) cats.add(categoryOf(t));
         TooltipMakerAPI tabs = content.createUIElement(w, 28f, false);
-        ButtonAPI prev = button(tabs, fmt("ui_tab_all", "" + StationType.values().length), "cat:",
+        ButtonAPI prev = button(tabs, fmt("ui_tab_all", "" + offered.size()), "cat:",
                 category == null ? TEXT : DIM, category == null ? BAND : GROUND, 90f, 24f, false);
         prev.setEnabled(!locked);
         for (String c : cats) {
@@ -641,10 +655,11 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         put(content, tabs, x0, y0);
 
         List<StationType> shown = new ArrayList<StationType>();
-        for (StationType t : StationType.values()) {
+        for (StationType t : offered) {
             if (category == null || category.equals(categoryOf(t))) shown.add(t);
         }
-        int cols = 5;
+        // Two rows: five columns for the ten regular types, six once a reward type is offered.
+        int cols = Math.max(5, (shown.size() + 1) / 2);
         float ty = y0 + 36f, gridH = HEIGHT - FOOTER_H - PAD - ty;
         float tw = (w - (cols - 1) * 10f) / cols, th = (gridH - 10f) / 2f;
         for (int i = 0; i < shown.size(); i++) {
@@ -715,6 +730,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         para(info, str("ui_requires"), null, DIM, 0f);
         String req = type.requirement.reason();
         para(info, req == null ? str("ui_req_none") : capitalize(req), null, TEXT, 2f);
+        if (type.unlock == Unlock.STS_FIRST_WIN) para(info, str("ui_unlock_sts"), null, GREEN, 4f);
         para(info, str("ui_crew_head"), null, DIM, 10f);
         float base = ship.getHullSpec().getMinCrew();
         float now = ship.getMinCrew();

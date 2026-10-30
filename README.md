@@ -54,6 +54,12 @@ materials.
 | Reactor Station | — | flux capacity +5/10/15%, flux dissipation +5/10/15% |
 | Damage Control Station | — | hull damage taken −5/10/15%, weapon and engine repairs +25/50/75%, crew lost −25/50/75% |
 | Flight Deck | fighter bays | fighter replacement time −10/20/30%, fighter top speed +5/10/15% |
+| Simulator Bay *(reward)* | — | max combat readiness +5/10/15, CR recovery +15/30/50% |
+
+**Simulator Bay, a Slay the Sector reward.** Win a Run in
+[Slay the Sector](https://github.com/PaulRouss3l/slay_the_sector) (any save, any faction) and Station Yard
+Inc. adds the Simulator Bay to its Catalogue: crews trained in the Descent Relay's simulation. Neither mod
+needs the other; Crew Stations simply reads Slay the Sector's progress file.
 
 ## Prices
 

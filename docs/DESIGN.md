@@ -40,6 +40,11 @@ materials, and need extra crew. Automated ships cannot have them.
 | Reactor | — | flux capacity +5/10/15% | flux dissipation +5/10/15% |
 | Damage control | — | hull damage taken −5/−10/−15% | weapon/engine repair rate +25/50/75%, crew loss −25/50/75% |
 | Flight deck | fighter bays | fighter replacement time −10/−20/−30% | fighter top speed +5/10/15% |
+| Simulator Bay (reward) | — | max combat readiness +5/10/15 points | CR recovery rate +15/30/50% |
+
+**Reward Stations** are offered only once unlocked. The Simulator Bay unlocks after a won Run in Slay the
+Sector (read from its cross-save file, docs/adr/0002); it then appears in The Catalogue under *Reward*, at
+the normal price. A built one stays even if the unlock goes away.
 
 Hybrid, composite, synergy and universal slots count for the weapon Stations when they accept that type.
 All values are v1 baselines, tunable in settings.

@@ -76,6 +76,7 @@ public final class Stations {
         if (member.isFighterWing()) return "not a ship";
         if (level < 1 || level > StationType.MAX_LEVEL) return "level must be 1 to " + StationType.MAX_LEVEL;
         Map<StationType, Integer> current = read(member);
+        if (!current.containsKey(type) && !type.unlock.isMet()) return "not offered yet";
         if (!current.containsKey(type) && current.size() >= slots(member)) return "no free Station slot";
         if (!type.requirement.isMet(member.getVariant())) return type.requirement.reason();
         int now = current.containsKey(type) ? current.get(type) : 0;
