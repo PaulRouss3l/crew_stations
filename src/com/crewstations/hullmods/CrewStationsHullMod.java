@@ -92,8 +92,7 @@ public class CrewStationsHullMod extends BaseHullMod {
                     StationType.levelName(level));
             tooltip.setBulletedListMode("  - ");
             for (StationEffect fx : type.effects) {
-                String pct = Misc.getRoundedValueMaxOneAfterDecimal(value(type, fx, level)) + "%";
-                tooltip.addPara(str("effect_" + fx.key) + " %s", 3f, hl, (fx.reduces ? "-" : "+") + pct);
+                tooltip.addPara(StationType.effectName(fx) + " %s", 3f, hl, type.valueText(fx, level));
             }
             tooltip.setBulletedListMode(null);
         }
@@ -102,7 +101,7 @@ public class CrewStationsHullMod extends BaseHullMod {
     }
 
     private static float value(StationType type, StationEffect fx, int level) {
-        return CSSettings.effect(type.id, fx.key, level, fx.defaults);
+        return type.value(fx, level);
     }
 
     private static String str(String key) {
