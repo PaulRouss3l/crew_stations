@@ -1,0 +1,65 @@
+{
+	# Station slots by hull size: frigate, destroyer, cruiser, capital.
+	"crst_slots": [1, 2, 3, 4],
+	# Skeleton and max crew added per Station Level, in percent.
+	"crst_crewPercentPerLevel": 10,
+
+	# Effect values in percent at L1, L2, L3, per Station type.
+	"crst_effects": {
+		"shield": {
+			"shieldDamageTaken": [5, 10, 15],
+			"shieldRate": [15, 30, 50],
+			"shieldUpkeep": [10, 20, 30]
+		},
+		"logistics": {
+			"supplyUse": [5, 10, 15],
+			"fuelUse": [10, 20, 30]
+		},
+		"engine": {
+			"topSpeed": [5, 10, 15],
+			"handling": [15, 30, 50]
+		},
+		"energy": {
+			"energyDamage": [3, 6, 10],
+			"energyFlux": [5, 10, 15]
+		},
+		"ballistic": {
+			"ballisticRof": [5, 10, 15],
+			"ballisticFlux": [5, 10, 15]
+		},
+		"missile": {
+			"missileAmmo": [25, 50, 100],
+			"missileHealth": [15, 30, 50],
+			"missileReload": [15, 30, 50]
+		},
+		"phase": {
+			"phaseUpkeep": [10, 20, 30],
+			"phaseCooldown": [10, 20, 30]
+		},
+		"reactor": {
+			"fluxCapacity": [5, 10, 15],
+			"fluxDissipation": [5, 10, 15]
+		},
+		"damage_control": {
+			"hullDamageTaken": [5, 10, 15],
+			"repairRate": [25, 50, 75],
+			"crewLoss": [25, 50, 75]
+		},
+		"flight_deck": {
+			"fighterReplacement": [10, 20, 30],
+			"fighterSpeed": [5, 10, 15]
+		}
+	},
+
+	# Costs (used from S2). Credits and commodities per Level (L1, L2, L3), times the hull multiplier.
+	"crst_creditsPerLevel": [150000, 400000, 900000],
+	"crst_heavyMachineryPerLevel": [100, 200, 300],
+	"crst_metalsPerLevel": [0, 500, 0],
+	"crst_rareMetalsPerLevel": [0, 0, 200],
+	# Hull multiplier: frigate, destroyer, cruiser, capital.
+	"crst_hullCostMult": [0.5, 1, 2, 4],
+	# Share of credits paid that Dismantle gives back.
+	"crst_refundFraction": 0.25,
+	# L3 needs Orbital Works or a nanoforge.
+	"crst_l3Gate": true
+}

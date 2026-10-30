@@ -12,19 +12,21 @@ Status legend: ⬜ planned · 🟡 code-complete, needs in-game test · ✅ veri
 ## S0 — Scaffold
 
 - 🟡 Build/validate/run/release harness copied from Slay the Sector; tools vendored in `tools/`.
-- 🟡 Hello world: `[CrewStations] Hello world: application loaded` (launch) and
-  `... game loaded (newGame=…)` (new game / load) appear in `starsector.log`.
+- 🟡 Hello world: `[CrewStations] application loaded` (launch) and
+  `[CrewStations] game loaded (newGame=…)` (new game / load) appear in `starsector.log`.
 
 ## S1 — Core (no screen)
 
-- ⬜ `StationType` enum (10 types) with requirement checks (shields, phase, bays, weapon slot types).
-- ⬜ Station data read/write as a variant tag, stock variants cloned first, modules included (ADR 0001).
-- ⬜ Settings: every number from `data/config/settings.json` (`crst_` keys).
-- ⬜ `crst_crew_stations` hullmod: built-in, 0 OP, applies all active Station effects + crew cost,
+In-game checklist: `S1_SMOKE_TEST.md`.
+
+- 🟡 `StationType` enum (10 types) with requirement checks (shields, phase, bays, weapon slot types).
+- 🟡 Station data read/write as a variant tag, stock variants cloned first, modules included (ADR 0001).
+- 🟡 Settings: every number from `data/config/settings.json` (`crst_` keys).
+- 🟡 `crst_crew_stations` hullmod: built-in, 0 OP, applies all active Station effects + crew cost,
   tooltip lists Stations (inactive greyed).
-- ⬜ Automated ships rejected everywhere.
-- ⬜ Console commands: `crst add <station> <level>`, `crst clear`, `crst list` (flagship).
-- ⬜ Check: Stations survive save/load, storage, transfer, recovery; destroyed ships lose them.
+- 🟡 Automated ships rejected everywhere.
+- 🟡 Console commands: `crst add <station> <level>`, `crst clear`, `crst list` (flagship).
+- ⬜ In game (`S1_SMOKE_TEST.md`): Stations survive save/load, storage, transfer, recovery; destroyed ships lose them.
 
 ## S2 — Shipyard screen
 

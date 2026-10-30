@@ -1,0 +1,2 @@
+command,class,tags,syntax,help
+crst,com.crewstations.debug.CrstCommand,"crew_stations,cheat",crst list|add <station> <level>|clear [station],"Crew Stations debug, on the flagship. list: its Stations and slots. add <station> <1-3>: build or set a Station (shield, logistics, engine, energy, ballistic, missile, phase, reactor, damage_control, flight_deck). clear [station]: remove one Station, or all."

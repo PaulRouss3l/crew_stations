@@ -1,6 +1,7 @@
 package com.crewstations;
 
 import com.crewstations.util.CSLog;
+import com.crewstations.util.CSSettings;
 import com.fs.starfarer.api.BaseModPlugin;
 
 /**
@@ -11,11 +12,12 @@ public class CrewStationsModPlugin extends BaseModPlugin {
 
     @Override
     public void onApplicationLoad() throws Exception {
-        CSLog.info("Hello world: application loaded");
+        CSSettings.load();
+        CSLog.info("application loaded");
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
-        CSLog.info("Hello world: game loaded (newGame=" + newGame + ")");
+        CSLog.info("game loaded (newGame=" + newGame + ")");
     }
 }

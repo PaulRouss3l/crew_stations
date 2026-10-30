@@ -1,9 +1,12 @@
 {
     "prefix": "crst_",
-    "optional_mods": [],
+    "optional_mods": [
+        "lw_console"
+    ],
     "literal_whitelist": [],
     "allow_overrides": [],
     "ignore": [
-        "mod id 'crew_stations' is also used by .*/mods/crew-stations \\(the launcher"
+        "mod id 'crew_stations' is also used by .*/mods/crew-stations \\(the launcher",
+        "imports org\\.lazywizard classes but lw_lazylib is not a dependency"
     ]
 }
