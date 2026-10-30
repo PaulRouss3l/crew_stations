@@ -27,7 +27,8 @@ Some or all assets and code in this mod were created using AI tools:
   merged.
 - **Art:** the ten Station illustrations, the Crew Stations hullmod icon and the forum banner
   (`docs/assets/banner.png`) were made with Z-Image Turbo (Alibaba's Tongyi Lab), an open image model run
-  locally in ComfyUI; the banner starts from the vanilla Onslaught sprite. Prompts and the pipeline: [`docs/ART.md`](docs/ART.md). The banner title uses the
+  locally in ComfyUI; the banner starts from the vanilla Onslaught sprite. Prompts and the pipeline:
+  [`docs/ART.md`](docs/ART.md). The banner title uses the
   Orbitron font (SIL Open Font License).
 
 ## License
