@@ -69,8 +69,12 @@
 	"crst_refundFraction": 0.25,
 	# L3 needs Orbital Works or a nanoforge.
 	"crst_l3Gate": true,
-	# Offer reward Stations (Simulator Bay) without their unlock. For testing.
+	# Offer every locked Station (Simulator Bay, Missile Silo, Phase, Engine) without its unlock. For testing.
 	"crst_unlockAll": false,
+	# Achievement unlocks, per save: Phase Station at this many credits, Engine Station at this much fuel.
+	# The Missile Silo unlocks after destroying an enemy capital ship.
+	"crst_unlockCredits": 1000000,
+	"crst_unlockFuel": 5000,
 
 	"graphics": {
 		# Station art, 512x512, cropped to each box by the screen (docs/ART.md).

@@ -24,7 +24,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
  *   crst list                      the selected ship's Stations and slots
  *   crst add <station> <level>     build or set a Station (same checks as a Shipyard, minus cost)
  *   crst clear [station]           remove one Station, or all
- *   crst unlock [on|off|auto]      reward Station unlocks; on/off forces offered/locked until the game closes
+ *   crst unlock [on|off|auto]      locked Stations; on/off forces all offered/locked until the game closes
  */
 public class CrstCommand implements BaseCommand {
 
@@ -79,9 +79,14 @@ public class CrstCommand implements BaseCommand {
         else if ("auto".equalsIgnoreCase(mode)) Unlock.setOverride(null);
         else if (mode != null) return CommandResult.BAD_SYNTAX;
         Unlock.refresh();
-        Console.showMessage("Slay the Sector won Run found: " + (Unlock.stsWon() ? "yes" : "no")
-                + ". Override: " + Unlock.override() + ". Simulator Bay offered: "
-                + (StationType.SIMULATOR.unlock.isMet() ? "yes" : "no") + ".");
+        StringBuilder sb = new StringBuilder("Override: " + Unlock.override() + ". Slay the Sector won Run found: "
+                + (Unlock.stsWon() ? "yes" : "no") + ".");
+        for (StationType t : StationType.values()) {
+            if (t.unlock == Unlock.NONE) continue;
+            sb.append("\n  ").append(t.displayName()).append(": ").append(t.unlock.isMet() ? "offered" : "locked")
+                    .append(" (").append(t.unlock.howTo()).append(")");
+        }
+        Console.showMessage(sb.toString());
         return CommandResult.SUCCESS;
     }
 

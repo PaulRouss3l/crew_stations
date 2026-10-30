@@ -56,6 +56,18 @@ materials.
 | Flight Deck | fighter bays | fighter replacement time −10/20/30%, fighter top speed +5/10/15% |
 | Simulator Bay *(reward)* | — | max combat readiness +5/10/15, CR recovery +15/30/50% |
 
+**Locked Stations.** Station Yard Inc. keeps some Stations for proven customers. They show greyed in The
+Catalogue until you earn them, in that save:
+
+| Station | Unlock |
+|---|---|
+| Missile Silo | destroy an enemy capital ship |
+| Phase Station | hold 1,000,000 credits |
+| Engine Station | carry 5,000 fuel |
+| Simulator Bay | win a Run in Slay the Sector (any save) |
+
+Each unlock comes with a note from Station Yard Inc.'s Customer Relations.
+
 **Simulator Bay, a Slay the Sector reward.** Win a Run in
 [Slay the Sector](https://github.com/PaulRouss3l/slay_the_sector) (any save, any faction) and Station Yard
 Inc. adds the Simulator Bay to its Catalogue: you stream your Descent exploits to boost crew morale. No

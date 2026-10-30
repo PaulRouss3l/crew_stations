@@ -2,10 +2,18 @@
 
 ## 0.2.0 (beta)
 
+- **Locked Stations.** Station Yard Inc. now keeps some Stations for proven customers. Until unlocked they
+  show greyed in The Catalogue with what to do; then they sell at the normal price. Per save:
+  - **Missile Silo:** destroy an enemy capital ship.
+  - **Phase Station:** hold 1,000,000 credits.
+  - **Engine Station:** carry 5,000 fuel.
+
+  Stations you already built stay. Each unlock comes with a message from Station Yard Inc.'s Customer
+  Relations (a notification and an Intel entry that fades after 3 days). Thresholds in settings.json.
 - **Simulator Bay**, a new reward Station: crews trained in Slay the Sector's Descent Relay simulation. Max
   combat readiness +5/10/15, CR recovery +15/30/50%. Station Yard Inc. offers it once you have won a Run in
-  Slay the Sector (any save, any faction); it then appears in The Catalogue under *Reward*. Neither mod
-  needs the other.
+  Slay the Sector (any save, any faction); it then appears in The Catalogue under *Reward*. Without Slay the Sector it shows greyed
+  with "Needs the Slay the Sector mod". Neither mod needs the other.
 
 ## 0.1.1 (beta)
 

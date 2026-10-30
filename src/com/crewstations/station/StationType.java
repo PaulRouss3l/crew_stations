@@ -31,7 +31,7 @@ public enum StationType {
             down("supplyUse", 5, 10, 15, (s, id, p) -> s.getSuppliesPerMonth().modifyMult(id, less(p))),
             down("fuelUse", 10, 20, 30, (s, id, p) -> s.getFuelUseMod().modifyMult(id, less(p)))),
 
-    ENGINE("engine", Requirement.NONE,
+    ENGINE("engine", Requirement.NONE, Unlock.FUEL,
             up("topSpeed", 5, 10, 15, (s, id, p) -> s.getMaxSpeed().modifyPercent(id, p)),
             up("handling", 15, 30, 50, (s, id, p) -> {
                 s.getAcceleration().modifyPercent(id, p);
@@ -48,12 +48,12 @@ public enum StationType {
             up("ballisticRof", 5, 10, 15, (s, id, p) -> s.getBallisticRoFMult().modifyPercent(id, p)),
             down("ballisticFlux", 5, 10, 15, (s, id, p) -> s.getBallisticWeaponFluxCostMod().modifyMult(id, less(p)))),
 
-    MISSILE("missile", Requirement.MISSILE_SLOT,
+    MISSILE("missile", Requirement.MISSILE_SLOT, Unlock.CAPITAL_KILL,
             up("missileAmmo", 25, 50, 100, (s, id, p) -> s.getMissileAmmoBonus().modifyPercent(id, p)),
             up("missileHealth", 15, 30, 50, (s, id, p) -> s.getMissileHealthBonus().modifyPercent(id, p)),
             up("missileReload", 15, 30, 50, (s, id, p) -> s.getMissileAmmoRegenMult().modifyPercent(id, p))),
 
-    PHASE("phase", Requirement.PHASE,
+    PHASE("phase", Requirement.PHASE, Unlock.CREDITS,
             down("phaseUpkeep", 10, 20, 30, (s, id, p) -> s.getPhaseCloakUpkeepCostBonus().modifyMult(id, less(p))),
             down("phaseCooldown", 10, 20, 30, (s, id, p) -> s.getPhaseCloakCooldownBonus().modifyMult(id, less(p)))),
 

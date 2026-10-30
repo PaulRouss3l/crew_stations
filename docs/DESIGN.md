@@ -42,9 +42,20 @@ materials, and need extra crew. Automated ships cannot have them.
 | Flight deck | fighter bays | fighter replacement time −10/−20/−30% | fighter top speed +5/10/15% |
 | Simulator Bay (reward) | — | max combat readiness +5/10/15 points | CR recovery rate +15/30/50% |
 
-**Reward Stations** are offered only once unlocked. The Simulator Bay unlocks after a won Run in Slay the
-Sector (read from its cross-save file, docs/adr/0002); it then appears in The Catalogue under *Reward*, at
-the normal price. A built one stays even if the unlock goes away.
+**Locked Stations.** Four types are offered only once unlocked; until then The Catalogue shows them greyed
+with what to do. Normal price once unlocked. A built one stays even if the unlock goes away.
+
+| Station | Unlock | Scope |
+|---|---|---|
+| Missile Silo | destroy an enemy capital ship (not a station) in a battle you fight | per save |
+| Phase Station | hold 1,000,000 credits (`crst_unlockCredits`) | per save |
+| Engine Station | carry 5,000 fuel (`crst_unlockFuel`) | per save |
+| Simulator Bay (reward) | a won Run in Slay the Sector (its cross-save file, docs/adr/0002); without that mod: "Needs the Slay the Sector mod" | cross-save |
+
+Per-save unlocks are sector memory flags (`$crst_unlocked_*`). A transient tracker checks credits, fuel and
+the Slay the Sector file once a day and capital kills after each player battle. Each unlock posts a
+**Station Yard Inc. message** (intel with a notification, its own *Station Yard Inc.* tag) that fades out
+after 3 days.
 
 Hybrid, composite, synergy and universal slots count for the weapon Stations when they accept that type.
 All values are v1 baselines, tunable in settings.

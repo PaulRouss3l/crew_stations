@@ -147,6 +147,20 @@
 		"category_simulator": "reward",
 		"cat_reward": "Reward",
 		"desc_simulator": "As an exceptional pilot, you stream your combat exploits to boost crew morale. No one has to know it was a simulation.",
-		"ui_unlock_sts": "Slay the Sector reward: offered once you have won a Run in the Descent."
+		"ui_locked": "Locked: %s",
+		"ui_unlock_head": "UNLOCK",
+		"ui_unlocked": "Unlocked: %s",
+		"unlock_capital_kill": "Destroy an enemy capital ship",
+		"unlock_credits": "Hold %s credits",
+		"unlock_fuel": "Carry %s fuel",
+		"unlock_sts_first_win": "Win a Slay the Sector Run",
+		"unlock_sts_missing": "Needs the Slay the Sector mod",
+		"intel_title": "Station Yard Inc.: %s available",
+		"intel_bullet": "Now in The Catalogue at any showroom",
+		"intel_capital_kill": "Customer Relations has followed your recent, ahem, decommissioning of a capital ship with great interest. A captain of your calibre deserves our Missile Silo: hand-loaded racks, each missile signed by its loader. It is now in The Catalogue.",
+		"intel_credits": "Our accountants noticed your balance and fainted. Once revived, they opened our Phase Station to you, reserved for clients of means. It is now in The Catalogue.",
+		"intel_fuel": "With that much fuel aboard, you clearly intend to go places. May we suggest our Engine Station, for captains who treat the speed limit as a suggestion? It is now in The Catalogue.",
+		"intel_sts_first_win": "Word of your triumph in the Descent has reached us. Exploits like yours deserve an audience: the Simulator Bay, for streaming them to a grateful crew, is now in The Catalogue.",
+		"intel_signoff": "Customer Relations, Station Yard Inc."
 	}
 }

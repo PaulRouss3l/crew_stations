@@ -163,7 +163,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         } else if (id.startsWith("cat:")) {
             category = id.length() > 4 ? id.substring(4) : null;
             if (category != null && (pickedType == null || !category.equals(categoryOf(pickedType)))) {
-                for (StationType t : offered()) {
+                for (StationType t : StationType.values()) {
                     if (category.equals(categoryOf(t))) {
                         pickedType = t;
                         break;
@@ -248,26 +248,21 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     /** Why {@code type} cannot be built on this ship now (built, rules, Shipyard, cost), or null. */
     private String whyNotBuild(StationType type) {
         if (Stations.read(ship).containsKey(type)) return str("ui_already_built");
+        if (!type.unlock.isMet()) return fmt("ui_locked", type.unlock.howTo());
         String why = whyNot(type, 1);
         return why != null ? why : cannotPay(1);
     }
 
     private StationType firstBuildable() {
-        List<StationType> offered = offered();
-        for (StationType t : offered) {
+        for (StationType t : StationType.values()) {
             if (whyNotBuild(t) == null) return t;
         }
-        return offered.get(0);
+        return StationType.values()[0];
     }
 
-    /** Types Station Yard Inc. shows this ship: unlocked ones, plus any already built. */
-    private List<StationType> offered() {
-        Map<StationType, Integer> built = Stations.read(ship);
-        List<StationType> out = new ArrayList<StationType>();
-        for (StationType t : StationType.values()) {
-            if (t.unlock.isMet() || built.containsKey(t)) out.add(t);
-        }
-        return out;
+    /** Locked for this ship: not unlocked yet and not already built on it. */
+    private boolean lockedFor(StationType type) {
+        return !type.unlock.isMet() && !Stations.read(ship).containsKey(type);
     }
 
     private static List<FleetMemberAPI> fleet() {
@@ -638,10 +633,10 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
         // Category tabs, from the Station types themselves.
         Set<String> cats = new LinkedHashSet<String>();
-        List<StationType> offered = offered();
-        for (StationType t : offered) cats.add(categoryOf(t));
+        StationType[] all = StationType.values();
+        for (StationType t : all) cats.add(categoryOf(t));
         TooltipMakerAPI tabs = content.createUIElement(w, 28f, false);
-        ButtonAPI prev = button(tabs, fmt("ui_tab_all", "" + offered.size()), "cat:",
+        ButtonAPI prev = button(tabs, fmt("ui_tab_all", "" + all.length), "cat:",
                 category == null ? TEXT : DIM, category == null ? BAND : GROUND, 90f, 24f, false);
         prev.setEnabled(!locked);
         for (String c : cats) {
@@ -655,10 +650,10 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         put(content, tabs, x0, y0);
 
         List<StationType> shown = new ArrayList<StationType>();
-        for (StationType t : offered) {
+        for (StationType t : all) {
             if (category == null || category.equals(categoryOf(t))) shown.add(t);
         }
-        // Two rows: five columns for the ten regular types, six once a reward type is offered.
+        // Two rows: as many columns as half the shown types, at least five.
         int cols = Math.max(5, (shown.size() + 1) / 2);
         float ty = y0 + 36f, gridH = HEIGHT - FOOTER_H - PAD - ty;
         float tw = (w - (cols - 1) * 10f) / cols, th = (gridH - 10f) / 2f;
@@ -671,7 +666,8 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
     private void pickerTile(StationType type, float x, float y, float w, float h, boolean locked) {
         Integer built = Stations.read(ship).get(type);
         String why = built != null ? null : whyNotBuild(type);
-        boolean fits = built != null || type.requirement.isMet(ship.getVariant());
+        boolean lock = lockedFor(type);
+        boolean fits = built != null || (!lock && type.requirement.isMet(ship.getVariant()));
         boolean sel = type == pickedType;
         Painter tp = new Painter(this);
         if (!locked) {
@@ -697,6 +693,9 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         if (built != null) {
             status = fmt("ui_installed", "" + built);
             sc = GREEN;
+        } else if (lock) {
+            status = type.unlock.howTo();
+            sc = DIM;
         } else if (why != null) {
             // Rule reasons are short; a cost reason is summarised here and spelled out in the detail panel.
             String rule = whyNot(type, 1);
@@ -726,11 +725,16 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
                 new String[] { fmt("ui_col_level", "1"), fmt("ui_col_level", "2"), fmt("ui_col_level", "3") }, 0);
         iy += 18f + type.effects.size() * 32f + 10f;
 
-        TooltipMakerAPI info = content.createUIElement(iw, 110f, false);
+        TooltipMakerAPI info = content.createUIElement(iw, 150f, false);
         para(info, str("ui_requires"), null, DIM, 0f);
         String req = type.requirement.reason();
         para(info, req == null ? str("ui_req_none") : capitalize(req), null, TEXT, 2f);
-        if (type.unlock == Unlock.STS_FIRST_WIN) para(info, str("ui_unlock_sts"), null, GREEN, 4f);
+        if (type.unlock != Unlock.NONE) {
+            boolean met = type.unlock.isMet();
+            para(info, str("ui_unlock_head"), null, DIM, 10f);
+            para(info, met ? fmt("ui_unlocked", type.unlock.howTo()) : type.unlock.howTo(), null,
+                    met ? GREEN : Misc.getNegativeHighlightColor(), 2f);
+        }
         para(info, str("ui_crew_head"), null, DIM, 10f);
         float base = ship.getHullSpec().getMinCrew();
         float now = ship.getMinCrew();
