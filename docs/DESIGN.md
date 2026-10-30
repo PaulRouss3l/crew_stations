@@ -43,7 +43,8 @@ materials, and need extra crew. Automated ships cannot have them.
 | Simulator Bay (reward) | — | max combat readiness +5/10/15 points | CR recovery rate +15/30/50% |
 
 **Locked Stations.** Four types are offered only once unlocked; until then The Catalogue shows them greyed
-as *Locked*, and the detail panel says what to do. Normal price once unlocked. A built one stays even if the unlock goes away.
+as *Locked*; the detail panel shows only the name, dimmed art, *???* for the description and effects, and
+how to unlock it. Normal price once unlocked. A built one stays even if the unlock goes away.
 
 | Station | Unlock | Scope |
 |---|---|---|

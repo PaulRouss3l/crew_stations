@@ -587,6 +587,12 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
      */
     private void effectTable(CustomPanelAPI p, float x, float y, float w, StationType type, int[] levels, String[] heads,
             int hiCol) {
+        effectTable(p, x, y, w, type, levels, heads, hiCol, false);
+    }
+
+    /** {@code masked}: one row of "???" instead of the effects (locked Stations keep their secrets). */
+    private void effectTable(CustomPanelAPI p, float x, float y, float w, StationType type, int[] levels, String[] heads,
+            int hiCol, boolean masked) {
         float colW = 46f, labelW = w - levels.length * colW;
         TooltipMakerAPI hl = p.createUIElement(labelW, 14f, false);
         para(hl, str("ui_col_effect"), null, DIM, 0f);
@@ -597,14 +603,15 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             put(p, hc, x + labelW + c * colW, y);
         }
         float rowH = labelW < 120f ? 36f : 32f, ry = y + 18f;
-        for (StationEffect fx : type.effects) {
+        List<StationEffect> rows = masked ? type.effects.subList(0, 1) : type.effects;
+        for (StationEffect fx : rows) {
             TooltipMakerAPI l = p.createUIElement(labelW - 6f, rowH, false);
-            para(l, StationType.effectName(fx), null, hiCol < 0 ? DIM : TEXT, 0f);
+            para(l, masked ? str("ui_mystery") : StationType.effectName(fx), null, hiCol < 0 ? DIM : TEXT, 0f);
             put(p, l, x, ry);
             for (int c = 0; c < levels.length; c++) {
                 TooltipMakerAPI v = p.createUIElement(colW, rowH, false);
-                para(v, type.valueText(fx, levels[c]), null, c == hiCol ? Misc.getHighlightColor() : DIM, 0f)
-                        .setAlignment(Alignment.RMID);
+                para(v, masked ? str("ui_mystery") : type.valueText(fx, levels[c]), null,
+                        c == hiCol ? Misc.getHighlightColor() : DIM, 0f).setAlignment(Alignment.RMID);
                 put(p, v, x + labelW + c * colW, ry);
             }
             ry += rowH;
@@ -713,20 +720,32 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
     private void buildDetail(Painter paint, float x, float y, float w, float h) {
         StationType type = pickedType != null ? pickedType : firstBuildable();
+        // Locked: only the name, dimmed art and how to unlock it. Everything else stays a mystery.
+        boolean lock = lockedFor(type);
         paint.fill(x, y, w, h, PANEL).line(x, y, x, y + h, LINE).fill(x + 1, y, w - 1, 112f, BAND);
         paint.fill(x + PAD, y + 14f, 64f, 64f, GROUND).border(x + PAD, y + 14f, 64f, 64f, CYAN);
-        paint.sprite(type.sprite(), x + PAD + 1f, y + 15f, 62f, 62f, null, false, true);
+        paint.sprite(type.sprite(), x + PAD + 1f, y + 15f, 62f, 62f, lock ? ART_OFF : null, false, true);
         TooltipMakerAPI head = content.createUIElement(w - 64f - 3 * PAD + 4f, 96f, false);
         para(head, type.displayName().toUpperCase(), Fonts.ORBITRON_12, TEXT, 0f);
-        para(head, description(type), null, DIM, 4f);
+        para(head, lock ? str("ui_mystery") : description(type), null, DIM, 4f);
         put(content, head, x + PAD + 64f + 12f, y + 16f);
 
         float iy = y + 126f, iw = w - 2 * PAD;
         effectTable(content, x + PAD, iy, iw, type, new int[] { 1, 2, 3 },
-                new String[] { fmt("ui_col_level", "1"), fmt("ui_col_level", "2"), fmt("ui_col_level", "3") }, 0);
-        iy += 18f + type.effects.size() * 32f + 10f;
+                new String[] { fmt("ui_col_level", "1"), fmt("ui_col_level", "2"), fmt("ui_col_level", "3") }, 0, lock);
+        iy += 18f + (lock ? 1 : type.effects.size()) * 32f + 10f;
 
         TooltipMakerAPI info = content.createUIElement(iw, 150f, false);
+        if (lock) {
+            para(info, str("ui_unlock_head"), null, DIM, 0f);
+            para(info, type.unlock.howTo(), null, Misc.getNegativeHighlightColor(), 2f);
+            put(content, info, x + PAD, iy);
+            TooltipMakerAPI btn = content.createUIElement(iw, 36f, false);
+            button(btn, str("ui_locked_tile"), "build:" + type.id, Color.WHITE, PRIMARY_BG, iw, 34f, true)
+                    .setEnabled(false);
+            put(content, btn, x + PAD, y + h - 48f);
+            return;
+        }
         para(info, str("ui_requires"), null, DIM, 0f);
         String req = type.requirement.reason();
         para(info, req == null ? str("ui_req_none") : capitalize(req), null, TEXT, 2f);

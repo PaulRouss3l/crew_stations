@@ -164,6 +164,7 @@
 		"intel_signoff": "Customer Relations, Station Yard Inc.",
 		"ui_locked_tile": "Locked",
 		"ui_incompatible_tile": "Not compatible",
-		"ui_unavailable_tile": "Unavailable"
+		"ui_unavailable_tile": "Unavailable",
+		"ui_mystery": "???"
 	}
 }
