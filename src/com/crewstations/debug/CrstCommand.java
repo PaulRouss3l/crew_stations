@@ -79,8 +79,8 @@ public class CrstCommand implements BaseCommand {
         else if ("auto".equalsIgnoreCase(mode)) Unlock.setOverride(null);
         else if (mode != null) return CommandResult.BAD_SYNTAX;
         Unlock.refresh();
-        StringBuilder sb = new StringBuilder("Override: " + Unlock.override() + ". Slay the Sector won Run found: "
-                + (Unlock.stsWon() ? "yes" : "no") + ".");
+        StringBuilder sb = new StringBuilder("Override: " + Unlock.override() + ". Slay the Sector enabled: "
+                + (Unlock.stsEnabled() ? "yes" : "no") + ", won Run found: " + (Unlock.stsWon() ? "yes" : "no") + ".");
         for (StationType t : StationType.values()) {
             if (t.unlock == Unlock.NONE) continue;
             sb.append("\n  ").append(t.displayName()).append(": ").append(t.unlock.isMet() ? "offered" : "locked")

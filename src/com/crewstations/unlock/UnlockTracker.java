@@ -39,7 +39,7 @@ public class UnlockTracker extends BaseCampaignEventListener implements EveryFra
         if (cargo.getCredits().get() >= CSSettings.unlockCredits()) achieved(Unlock.CREDITS);
         if (cargo.getFuel() >= CSSettings.unlockFuel()) achieved(Unlock.FUEL);
         Unlock.refresh();
-        if (Unlock.stsWon()) achieved(Unlock.STS_FIRST_WIN);
+        if (Unlock.stsWon() && Unlock.stsEnabled()) achieved(Unlock.STS_FIRST_WIN);
     }
 
     @Override

@@ -22,4 +22,5 @@ Sector, for its part, only mentions the unlock in its Run-end report when Crew S
 - The unlock is cross-save, like Slay the Sector's own Records.
 - Coupled to two JSON keys of another mod's file. If Slay the Sector renames them, the Simulator Bay
   stops being offered (already-built ones stay). Both sides document the keys.
+- The file outlives the mod, so a win only counts while Slay the Sector is enabled.
 - A broken or missing file reads as "not won". `crst_unlockAll` in settings offers it anyway (testing).

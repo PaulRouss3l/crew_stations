@@ -713,15 +713,15 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
     private void buildDetail(Painter paint, float x, float y, float w, float h) {
         StationType type = pickedType != null ? pickedType : firstBuildable();
-        paint.fill(x, y, w, h, PANEL).line(x, y, x, y + h, LINE).fill(x + 1, y, w - 1, 92f, BAND);
+        paint.fill(x, y, w, h, PANEL).line(x, y, x, y + h, LINE).fill(x + 1, y, w - 1, 112f, BAND);
         paint.fill(x + PAD, y + 14f, 64f, 64f, GROUND).border(x + PAD, y + 14f, 64f, 64f, CYAN);
         paint.sprite(type.sprite(), x + PAD + 1f, y + 15f, 62f, 62f, null, false, true);
-        TooltipMakerAPI head = content.createUIElement(w - 64f - 3 * PAD + 4f, 70f, false);
+        TooltipMakerAPI head = content.createUIElement(w - 64f - 3 * PAD + 4f, 96f, false);
         para(head, type.displayName().toUpperCase(), Fonts.ORBITRON_12, TEXT, 0f);
         para(head, description(type), null, DIM, 4f);
         put(content, head, x + PAD + 64f + 12f, y + 16f);
 
-        float iy = y + 108f, iw = w - 2 * PAD;
+        float iy = y + 126f, iw = w - 2 * PAD;
         effectTable(content, x + PAD, iy, iw, type, new int[] { 1, 2, 3 },
                 new String[] { fmt("ui_col_level", "1"), fmt("ui_col_level", "2"), fmt("ui_col_level", "3") }, 0);
         iy += 18f + type.effects.size() * 32f + 10f;

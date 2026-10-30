@@ -53,7 +53,7 @@ public enum Unlock {
         if (this == NONE) return true;
         if (override != 0) return override > 0;
         if (CSSettings.unlockAll()) return true;
-        if (this == STS_FIRST_WIN) return stsWon;
+        if (this == STS_FIRST_WIN) return stsWon && stsEnabled();
         return flagged();
     }
 
@@ -76,13 +76,18 @@ public enum Unlock {
      * For the Slay the Sector reward, says the mod is needed when it is not enabled.
      */
     public String howTo() {
-        if (this == STS_FIRST_WIN && !Global.getSettings().getModManager().isModEnabled(STS_MOD_ID)) {
+        if (this == STS_FIRST_WIN && !stsEnabled()) {
             return str("unlock_sts_missing");
         }
         String text = str("unlock_" + name().toLowerCase());
         if (this == CREDITS) return String.format(text, String.format("%,d", CSSettings.unlockCredits()));
         if (this == FUEL) return String.format(text, String.format("%,d", CSSettings.unlockFuel()));
         return text;
+    }
+
+    /** Slay the Sector's progress file outlives the mod: a win only counts while the mod is enabled. */
+    public static boolean stsEnabled() {
+        return Global.getSettings().getModManager().isModEnabled(STS_MOD_ID);
     }
 
     /** Whether Slay the Sector's progress file shows a won Run, as last read. */

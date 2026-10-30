@@ -11,7 +11,8 @@ until the game closes.
 - [ ] Click a greyed tile: detail panel shows UNLOCK in red with how to unlock it (*Destroy an enemy capital
       ship*, *Hold 1,000,000 credits*, *Carry 5,000 fuel*, *Win a Slay the Sector Run*); Order level 1 disabled with
       *Locked: ...*. `crst add missile 1` refuses ("not offered yet").
-- [ ] Slay the Sector disabled in the launcher: the Simulator Bay says *Needs the Slay the Sector mod*.
+- [ ] Slay the Sector disabled in the launcher (new game), even with an old win in `saves/common`: the
+      Simulator Bay is locked and its UNLOCK line says *Needs the Slay the Sector mod*.
 - [ ] A ship that already had an Engine Station (0.1.x save): it stays, works, can be upgraded.
 
 ## 2. Unlocks and messages (`crst unlock auto`)

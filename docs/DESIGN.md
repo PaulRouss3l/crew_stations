@@ -50,7 +50,7 @@ as *Locked*, and the detail panel says what to do. Normal price once unlocked. A
 | Missile Silo | destroy an enemy capital ship (not a station) in a battle you fight | per save |
 | Phase Station | hold 1,000,000 credits (`crst_unlockCredits`) | per save |
 | Engine Station | carry 5,000 fuel (`crst_unlockFuel`) | per save |
-| Simulator Bay (reward) | a won Run in Slay the Sector (its cross-save file, docs/adr/0002); without that mod: "Needs the Slay the Sector mod" | cross-save |
+| Simulator Bay (reward) | a won Run in Slay the Sector, with that mod enabled (its cross-save file, docs/adr/0002); disabled: "Needs the Slay the Sector mod" | cross-save |
 
 Per-save unlocks are sector memory flags (`$crst_unlocked_*`). A transient tracker checks credits, fuel and
 the Slay the Sector file once a day and capital kills after each player battle. Each unlock posts a
