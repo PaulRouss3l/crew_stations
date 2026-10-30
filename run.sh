@@ -7,6 +7,12 @@ cd "${STARSECTOR_DIR:-/home/ubik/Downloads/starsector}" || exit 1
 # set layout to english for 12345 key
 setxkbmap -device $(xinput list --id-only "keyboard:Naga V2 HS Keyboard") -layout us
 
+# Render on the NVIDIA dGPU (PRIME offload): the Intel iGPU hangs the whole desktop
+# ("GPU HANG ecode 12:1:84dffffb" in the kernel log). CS_IGPU=1 keeps the iGPU.
+if [ -z "$CS_IGPU" ]; then
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+fi
 
 ./jre_linux/bin/java \
     -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5005 \
