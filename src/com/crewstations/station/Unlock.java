@@ -25,10 +25,25 @@ public enum Unlock {
 
     /** Cached result for STS_FIRST_WIN; primitives only, safe as static state. */
     private static boolean stsWon;
+    /** Console override ({@code crst unlock on}); lasts until the game is closed, never saved. */
+    private static boolean forced;
 
     public boolean isMet() {
-        if (this == NONE || CSSettings.unlockAll()) return true;
+        if (this == NONE || CSSettings.unlockAll() || forced) return true;
         return stsWon;
+    }
+
+    /** Whether Slay the Sector's progress file shows a won Run, as last read. */
+    public static boolean stsWon() {
+        return stsWon;
+    }
+
+    public static boolean forced() {
+        return forced;
+    }
+
+    public static void setForced(boolean on) {
+        forced = on;
     }
 
     /** Re-reads the other mods' progress files. Cheap, but call it on events (game load, showroom open) only. */

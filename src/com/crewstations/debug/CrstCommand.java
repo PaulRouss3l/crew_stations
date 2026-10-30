@@ -8,6 +8,7 @@ import org.lazywizard.console.Console;
 
 import com.crewstations.station.StationType;
 import com.crewstations.station.Stations;
+import com.crewstations.station.Unlock;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
@@ -23,6 +24,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
  *   crst list                      the selected ship's Stations and slots
  *   crst add <station> <level>     build or set a Station (same checks as a Shipyard, minus cost)
  *   crst clear [station]           remove one Station, or all
+ *   crst unlock [on|off]           reward Station unlocks; on/off forces them until the game closes
  */
 public class CrstCommand implements BaseCommand {
 
@@ -44,6 +46,8 @@ public class CrstCommand implements BaseCommand {
                 case "select":
                     if (a.length < 2) return CommandResult.BAD_SYNTAX;
                     return select(a[1]);
+                case "unlock":
+                    return unlock(a.length > 1 ? a[1] : null);
                 default:
                     break;
             }
@@ -66,6 +70,18 @@ public class CrstCommand implements BaseCommand {
         } catch (NumberFormatException e) {
             return CommandResult.BAD_SYNTAX;
         }
+    }
+
+    /** Shows the reward unlocks; "on"/"off" forces them for this game session (not saved). */
+    private static CommandResult unlock(String onOff) {
+        if ("on".equalsIgnoreCase(onOff)) Unlock.setForced(true);
+        else if ("off".equalsIgnoreCase(onOff)) Unlock.setForced(false);
+        else if (onOff != null) return CommandResult.BAD_SYNTAX;
+        Unlock.refresh();
+        Console.showMessage("Slay the Sector won Run found: " + (Unlock.stsWon() ? "yes" : "no")
+                + ". Override: " + (Unlock.forced() ? "on" : "off") + ". Simulator Bay offered: "
+                + (StationType.SIMULATOR.unlock.isMet() ? "yes" : "no") + ".");
+        return CommandResult.SUCCESS;
     }
 
     private static List<FleetMemberAPI> fleet() {
