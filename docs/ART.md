@@ -44,6 +44,12 @@ subject there.
 
 Current banner: seed 601, denoise 0.58. Not shipped in the mod zip.
 
+## Forum signature
+
+`python3 art/signature.py` cuts a 360×90 banner per mod from each forum banner (this repo's and Slay the
+Sector's, `--sts <path>`) into `docs/assets/signature/`. Paste `docs/FORUM_SIGNATURE.bbcode` into the forum
+profile's signature; each banner links to its mod. Swap the links for the forum threads once they exist.
+
 ## Style
 
 Painterly concept art of a cramped crewed compartment on a worn industrial starship: muted steel grey and dark
