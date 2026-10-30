@@ -489,7 +489,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         boolean narrow = w < 260f;
         float artH = narrow ? 90f : 120f;
         cp.fill(1, 1, w - 2, artH - 1, GROUND).grid(1, 1, w - 2, artH - 1, 12f, GRID).line(0, artH, w, artH, LINE);
-        cp.sprite(type.sprite(), w / 2f - 56f, 4f, 112f, 112f, active ? null : ART_OFF, false);
+        cp.sprite(type.sprite(), 1f, 1f, w - 2f, artH - 1f, active ? null : ART_OFF, false, true);
         float bandY = artH, bandH = 52f;
         cp.fill(1, bandY, w - 2, bandH, BAND);
         Color pip = active ? Misc.getHighlightColor() : DIM;
@@ -664,7 +664,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
 
         float artY = 24f, artH = h - artY - 56f;
         tp.fill(8, artY, w - 16, artH, GROUND).border(8, artY, w - 16, artH, LINE_DIM);
-        tp.sprite(type.sprite(), 12, artY + 4, w - 24, artH - 8, fits ? null : ART_OFF, false);
+        tp.sprite(type.sprite(), 9, artY + 1, w - 18, artH - 2, fits ? null : ART_OFF, false, true);
 
         TooltipMakerAPI cat = tile.createUIElement(w - 16f, 14f, false);
         para(cat, categoryName(categoryOf(type)).toUpperCase(), null, DIM, 0f);
@@ -694,7 +694,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         StationType type = pickedType != null ? pickedType : firstBuildable();
         paint.fill(x, y, w, h, PANEL).line(x, y, x, y + h, LINE).fill(x + 1, y, w - 1, 92f, BAND);
         paint.fill(x + PAD, y + 14f, 64f, 64f, GROUND).border(x + PAD, y + 14f, 64f, 64f, CYAN);
-        paint.sprite(type.sprite(), x + PAD + 2f, y + 16f, 60f, 60f, null, false);
+        paint.sprite(type.sprite(), x + PAD + 1f, y + 15f, 62f, 62f, null, false, true);
         TooltipMakerAPI head = content.createUIElement(w - 64f - 3 * PAD + 4f, 70f, false);
         para(head, type.displayName().toUpperCase(), Fonts.ORBITRON_12, TEXT, 0f);
         para(head, description(type), null, DIM, 4f);

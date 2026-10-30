@@ -66,18 +66,18 @@
 	"crst_l3Gate": true,
 
 	"graphics": {
-		# Station art. Placeholders (vanilla hullmod icons) until S3.
+		# Station art, 512x512, cropped to each box by the screen (docs/ART.md).
 		"crst_stations": {
-			"shield": "graphics/hullmods/hardened_shields.png",
-			"logistics": "graphics/hullmods/efficiency.png",
-			"engine": "graphics/hullmods/augmented_engines.png",
-			"energy": "graphics/hullmods/advanced_optics.png",
-			"ballistic": "graphics/hullmods/ballistic_rangefinder.png",
-			"missile": "graphics/hullmods/expanded_missile_racks.png",
-			"phase": "graphics/hullmods/phase_field.png",
-			"reactor": "graphics/hullmods/flux_distributor.png",
-			"damage_control": "graphics/hullmods/blast_doors.png",
-			"flight_deck": "graphics/hullmods/expanded_deck_crew.png"
+			"shield": "graphics/crew_stations/stations/shield.png",
+			"logistics": "graphics/crew_stations/stations/logistics.png",
+			"engine": "graphics/crew_stations/stations/engine.png",
+			"energy": "graphics/crew_stations/stations/energy.png",
+			"ballistic": "graphics/crew_stations/stations/ballistic.png",
+			"missile": "graphics/crew_stations/stations/missile.png",
+			"phase": "graphics/crew_stations/stations/phase.png",
+			"reactor": "graphics/crew_stations/stations/reactor.png",
+			"damage_control": "graphics/crew_stations/stations/damage_control.png",
+			"flight_deck": "graphics/crew_stations/stations/flight_deck.png"
 		}
 	}
 }

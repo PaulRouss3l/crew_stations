@@ -133,12 +133,10 @@ with Level and effects, inactive ones greyed.
 
 ## Art
 
-- 10 Station card illustrations (~128×128): AI-generated with the local ComfyUI (Z-Image Turbo), then
-  cropped, downscaled and tone-matched to vanilla by script. Interior shots of the crewed compartment,
-  worn industrial sci-fi, muted palette, one accent colour per type (shield cyan, engine orange,
-  energy violet...).
-- 10 Station icons (32×32) and the hullmod icon: script-drawn glyphs (PIL) in vanilla's flat icon style.
-- 1 screen banner (AI-generated).
+- 10 Station illustrations: one 512×512 image per Station (AI-generated with the local ComfyUI, Z-Image
+  Turbo), cropped by the screen to the card banner, picker tile and detail panel. Interior shots of the crewed
+  compartment, worn industrial sci-fi, muted palette, one accent colour per type. Details: `ART.md`.
+- Hullmod icon (32×32): script-drawn glyph in vanilla's flat icon style.
 
 ## Configuration
 

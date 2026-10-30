@@ -7,7 +7,7 @@ smoke-test list for the human tester. Design: `DESIGN.md`. Terms: `GLOSSARY.md`.
 
 Status legend: ⬜ planned · 🟡 code-complete, needs in-game test · ✅ verified in game.
 
-**Current target: S3** — art. Proposed before it: Station types defined in config, so players and other
+**Current target: S3** — art (in progress). Proposed before it: Station types defined in config, so players and other
 mods can add their own.
 
 ## S0 — Scaffold
@@ -48,10 +48,11 @@ In-game checklist: `S2_SMOKE_TEST.md`.
 
 ## S3 — Art
 
-- ⬜ 10 Station card illustrations (ComfyUI + cleanup script), tone-matched to vanilla.
-- ⬜ 10 Station icons + hullmod icon (PIL glyphs).
-- ⬜ Screen banner.
-- ⬜ Wired into the screen and the hullmod tooltip.
+Pipeline and prompts: `ART.md`.
+
+- 🟡 10 Station illustrations (ComfyUI, Z-Image Turbo), 512×512, one square image cropped per box.
+- 🟡 Screen draws Station art cropped to fill (card banner, picker tile, detail panel).
+- ⬜ Hullmod icon (script-drawn glyph, 32×32).
 
 ## S4 — Polish + release
 
