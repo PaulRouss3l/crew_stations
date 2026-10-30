@@ -61,6 +61,7 @@ public class UnlockIntel extends BaseIntelPlugin {
         StationType t = type();
         if (t != null) info.addImage(t.sprite(), 128f, 128f, 0f);
         info.addPara(str("intel_" + unlock.toLowerCase()), 10f);
+        info.addPara(str("intel_where"), Misc.getHighlightColor(), 10f);
         info.addPara(str("intel_signoff"), Misc.getGrayColor(), 10f);
     }
 

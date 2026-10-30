@@ -165,6 +165,7 @@
 		"ui_locked_tile": "Locked",
 		"ui_incompatible_tile": "Not compatible",
 		"ui_unavailable_tile": "Unavailable",
-		"ui_mystery": "???"
+		"ui_mystery": "???",
+		"intel_where": "Available in any good spaceport with heavy industry."
 	}
 }
