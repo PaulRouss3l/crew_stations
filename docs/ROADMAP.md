@@ -11,22 +11,25 @@ Status legend: ⬜ planned · 🟡 code-complete, needs in-game test · ✅ veri
 
 ## S0 — Scaffold
 
-- 🟡 Build/validate/run/release harness copied from Slay the Sector; tools vendored in `tools/`.
-- 🟡 Hello world: `[CrewStations] application loaded` (launch) and
+- ✅ Build/validate/run/release harness copied from Slay the Sector; tools vendored in `tools/`.
+- ✅ Hello world: `[CrewStations] application loaded` (launch) and
   `[CrewStations] game loaded (newGame=…)` (new game / load) appear in `starsector.log`.
 
 ## S1 — Core (no screen)
 
 In-game checklist: `S1_SMOKE_TEST.md`.
 
-- 🟡 `StationType` enum (10 types) with requirement checks (shields, phase, bays, weapon slot types).
-- 🟡 Station data read/write as a variant tag, stock variants cloned first, modules included (ADR 0001).
-- 🟡 Settings: every number from `data/config/settings.json` (`crst_` keys).
-- 🟡 `crst_crew_stations` hullmod: built-in, 0 OP, applies all active Station effects + crew cost,
+- ✅ `StationType` enum (10 types) with requirement checks (shields, phase, bays, weapon slot types).
+- ✅ Station data read/write as a variant tag, stock variants cloned first, modules included (ADR 0001).
+- ✅ Settings: every number from `data/config/settings.json` (`crst_` keys).
+- ✅ `crst_crew_stations` hullmod: built-in, 0 OP, applies all active Station effects + crew cost,
   tooltip lists Stations (inactive greyed).
 - 🟡 Automated ships rejected everywhere.
-- 🟡 Console commands: `crst add <station> <level>`, `crst clear`, `crst list` (flagship).
-- ⬜ In game (`S1_SMOKE_TEST.md`): Stations survive save/load, storage, transfer, recovery; destroyed ships lose them.
+- ✅ Console commands: `crst add <station> <level>`, `crst clear`, `crst list` (flagship).
+- 🟡 `crst ships` / `crst select <n>`: act on any fleet ship (automated ships cannot be the flagship).
+- ✅ In game: Stations survive save/load, storage, transfer, mothballing; other ships of the same hull untouched;
+  inactive Station when shields are shunted. Verified 2026-10-30 (RC8, with Nexerelin/Exotica/RAT loaded).
+- ⬜ In game: automated ship refused, combat with a Station ship, disabled-then-recovered ship keeps its Stations.
 
 ## S2 — Shipyard screen
 
