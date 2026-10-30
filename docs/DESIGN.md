@@ -97,31 +97,33 @@ and its owner is not hostile to the player. Player colonies count.
 
 ## Screen
 
-A "Crew Stations" option appears in the market dock dialog (rules.csv `PopulateOptions`) only at a
-Shipyard. It opens a full-screen custom dialog:
+A "Visit the shipyard's crew Station works" option appears in the market dock dialog (rules.csv
+`PopulateOptions`) only at a Shipyard. It opens a 1120×700 custom dialog (fits the 1280×768 minimum screen).
+Reference layout: the "Crew Stations Shipyard UI" design canvas (https://claude.ai/artifact/UqcqQEFpxNMhFU4FhdpwzD).
 
-```
-┌────────────────────── Crew Stations — <market> ───────────────── [X] ┐
-│ FLEET            │  [ship sprite]  Onslaught (Capital)  slots 2/4      │
-│ ▸ Onslaught  2/4 │  Skeleton crew 500 → 700 (+40%)                      │
-│   Hammerhead 1/2 │ ┌──────────┐┌──────────┐┌──────────┐┌──────────┐    │
-│   Wolf       0/1 │ │[art]     ││[art]     ││  + Build ││  + Build │    │
-│   (Rampart)  n/a │ │ Ballistic││ Reactor  ││  station ││  station │    │
-│   automated grey │ │ ●●○  L2  ││ ●○○  L1  ││          ││          │    │
-│                  │ │[Upgrade] ││[Upgrade] ││          ││          │    │
-│                  │ │[Dismantle]│[Dismantle]│          ││          │    │
-│                  │ └──────────┘└──────────┘└──────────┘└──────────┘    │
-│                  │ Cost: 900,000¢  300 HM  200 rare metals  [have ok] │
-│ Credits 4.2M     │ Shipyard cap: L3 (Orbital Works)                     │
-└──────────────────────────────────────────────────────────────────────┘
-```
+**Ship view**
 
-- Left: player fleet; automated ships listed greyed as "n/a".
-- Right: selected ship, its slots as Station cards (art, name, Level pips, effects, Upgrade/Dismantle),
-  empty slots as "+ Build".
-- "+ Build" opens a card grid of all Station types: eligible ones show art, L1 effects and price;
-  ineligible ones greyed with the reason.
-- Starting point for the code: Slay the Sector's `CardGridDelegate` (paged cards, rebuild-on-change).
+- Header: title, market and Shipyard industry, chips for credits and the max Level here, Close.
+- Left: fleet rows (hull thumbnail, name, class, one pip per slot: filled = used). Automated ships greyed
+  with an "AUTO" tag. The whole row is clickable.
+- Ship panel: hull sprite on a grid, name and class, boxes for Station slots, skeleton crew and max crew
+  (base -> now, +N%).
+- One card per slot. Station card: art banner, name, Level bar, effects table (now vs next Level), price or
+  the reason it cannot be upgraded, Upgrade and Dismantle. Empty slot: dashed card, how many Station types
+  fit, "Build a Station".
+
+**Picker** ("Build a Station")
+
+- Category tabs (Defense, Weapons, Systems, Logistics) over a 5×2 grid of tiles: category, large art, name,
+  status (price, red reason, or "Installed").
+- Detail panel for the selected tile: art, name, one-line description, effects at all three Levels,
+  requirement, crew preview, cost with the source of each material, Build.
+
+**Confirmation drawer** (both views): what will happen, a table of each resource (needed / cargo / storage /
+bought here), total vs credits, Cancel and Confirm. Dismantle shows the refund instead.
+
+Drawing: flat GL rects, lines and sprites from one plugin per panel (`Painter`); text and buttons are vanilla
+widgets. Opaque background so the market dialog does not show through.
 
 ## Hullmod
 

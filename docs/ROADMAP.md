@@ -39,6 +39,8 @@ In-game checklist: `S2_SMOKE_TEST.md`.
 - 🟡 L3 gate (Orbital Works or nanoforge; setting to disable).
 - 🟡 Dock dialog option (rules.csv) at Shipyards only.
 - 🟡 Screen: fleet list, ship Station cards, Upgrade/Dismantle, "+ Build" card grid with greyed reasons.
+- 🟡 Redesigned screen (design canvas): ship panel, art-led cards, picker tiles + detail panel, confirmation
+  drawer, opaque background. Vanilla hullmod icons stand in until S3 art.
 - 🟡 Costs: credits × hull multiplier; commodities from cargo → local storage → market stock.
 - 🟡 Confirmation bar; dismantle refund 25% credits.
 
