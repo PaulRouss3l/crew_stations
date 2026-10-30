@@ -8,12 +8,17 @@
   - **Phase Station:** hold 1,000,000 credits.
   - **Engine Station:** carry 5,000 fuel.
 
-  Stations you already built stay. Each unlock comes with a message from Station Yard Inc.'s Customer
-  Relations (a notification and an Intel entry that fades after 3 days). Thresholds in settings.json.
+  Locked Stations keep their secrets: The Catalogue shows only their name and how to unlock them. Stations
+  you already built stay. Each unlock comes with a message from Station Yard Inc.'s Customer Relations (a
+  notification and an Intel entry that fades after 3 days). Thresholds in settings.json.
 - **Simulator Bay**, a new reward Station: crews trained in Slay the Sector's Descent Relay simulation. Max
   combat readiness +5/10/15, CR recovery +15/30/50%. Station Yard Inc. offers it once you have won a Run in
-  Slay the Sector (any save, any faction); it then appears in The Catalogue under *Reward*. Without Slay the Sector it shows greyed
-  with "Needs the Slay the Sector mod". Neither mod needs the other.
+  Slay the Sector (any save, any faction) and that mod is enabled; it then appears in The Catalogue under
+  *Reward*. Without Slay the Sector it stays locked with "Needs the Slay the Sector mod". Neither mod needs
+  the other.
+- **The Catalogue** shows all 11 Stations in six columns. Tiles give a one-word status (Locked, Not
+  compatible, Unavailable, Out of budget); the detail panel has the full reason.
+- **Console:** `crst unlock [on|off|auto]` lists locked Stations and forces them offered or locked for testing.
 
 ## 0.1.1 (beta)
 

@@ -4,7 +4,7 @@
 
 **Build and upgrade crewed Stations aboard your ships for permanent bonuses.**
 
-*Beta 0.1.0, for Starsector 0.98a.*
+*Beta 0.2.0, for Starsector 0.98a.*
 
 [![Install with TriOS](https://trilink.wispborne.com/badges/install-badge-forthebadge.svg)](https://trilink.wispborne.com/open.html?mod=%7B%22url%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FPaulRouss3l%2Fcrew_stations%2Fmain%2Fcrew_stations.version%22%2C%22id%22%3A%22crew_stations%22%7D)
 
