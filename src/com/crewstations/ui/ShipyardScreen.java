@@ -405,7 +405,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         TooltipMakerAPI t = row.createUIElement(textW, ROW_H - 8f, false);
         Color nameColor = auto ? MUTED : sel ? Misc.getHighlightColor() : TEXT;
         para(t, shorten(m.getShipName(), 22), null, nameColor, 0f);
-        para(t, shorten(m.getHullSpec().getHullNameWithDashClass(), 26), null, DIM, 1f);
+        para(t, shorten(m.getHullSpec().getHullName(), 22), null, DIM, 1f);
         put(row, t, 54f, 7f);
     }
 
@@ -682,7 +682,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             status = rule != null ? rule : str("ui_cant_afford");
             sc = Misc.getNegativeHighlightColor();
         } else {
-            status = shortPrice(1);
+            status = Misc.getDGSCredits(StationCost.of(ship.getHullSpec().getHullSize(), 1).credits);
             sc = DIM;
         }
         para(t, status, null, sc, 2f).setAlignment(Alignment.MID);
@@ -857,13 +857,6 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
                     .append(Global.getSettings().getCommoditySpec(e.getKey()).getName().toLowerCase());
         }
         return sb.toString();
-    }
-
-    /** "300,000¢ + materials" for a picker tile. */
-    private String shortPrice(int level) {
-        StationCost cost = StationCost.of(ship.getHullSpec().getHullSize(), level);
-        return cost.commodities.isEmpty() ? Misc.getDGSCredits(cost.credits)
-                : fmt("ui_price_short", Misc.getDGSCredits(cost.credits));
     }
 
     /** "in cargo" / "cargo 120, storage 80, buy 20" for the picker's cost block. */

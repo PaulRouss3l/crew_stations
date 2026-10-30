@@ -92,7 +92,6 @@
 		"ui_crew_head": "CREW",
 		"ui_crew_preview": "Skeleton crew %s -> %s (+%s per level)",
 		"ui_build_level1": "Build level 1",
-		"ui_price_short": "%s + materials",
 		"ui_res_credits": "Credits",
 		"ui_cost_missing_short": "%s: %s short",
 		"ui_src_all_cargo": "in cargo",
