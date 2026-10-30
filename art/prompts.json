@@ -52,7 +52,9 @@
     "banner": {
       "w": 1600,
       "h": 640,
-      "prompt": "Wide cinematic concept art, cutaway cross-section of a worn industrial starship hull seen from the side, a row of brightly lit crewed compartments inside it like a dollhouse: a cyan shield control room, an orange engine room with a glowing thruster, a blue-white reactor core room, a red missile magazine, a hangar with a small fighter; tiny crew in work jumpsuits busy in every room, cables and pipes between rooms. Painterly digital painting in the style of gritty 1990s space-strategy concept art, muted steel-grey hull, dark starfield background, deep black empty space along the bottom quarter of the image. No text, no logos, no UI."
+      "init": "raw/banner_init.png",
+      "denoise": 0.58,
+      "prompt": "Painterly concept art, top-down view of the Onslaught, a massive brutal rust-brown armored battleship drifting in space, nose pointing right. Its thick hull plating is cut away in five places, revealing brightly lit crewed compartments seen from above like a dollhouse: a cyan shield control room, an orange engine room, a blue-white reactor core, a red missile magazine, a hangar with a small fighter; tiny crew in work jumpsuits busy in each room. Gritty 1990s space-strategy concept art style, rich detail on the hull, dark starfield, deep black empty space along the bottom of the image. No text, no logos, no UI."
     }
   }
 }

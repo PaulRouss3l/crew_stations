@@ -33,9 +33,16 @@ subject there.
 
 ## Forum banner
 
-`docs/assets/banner.png`, 1600×640 like Slay the Sector's: `python3 art/generate.py banner --seeds 4`, pick one,
-then `python3 art/banner.py <seed>` adds the Orbitron title, the subtitle and the frame. Not shipped in the mod
-zip.
+`docs/assets/banner.png`, 1600×640 like Slay the Sector's. It starts from the game's Onslaught sprite
+(img2img), so the hull keeps its three-pronged shape while the paint opens it up into lit crew rooms.
+
+1. `python3 art/banner.py init` → `art/raw/banner_init.png`: the Onslaught sprite, nose right, on a dark
+   1600×640 canvas.
+2. `python3 art/generate.py banner --seeds 3 --denoise 0.58` → `art/raw/banner_<seed>_d58.png`. Lower denoise
+   keeps more of the sprite, higher invents more; 0.5–0.6 works.
+3. `python3 art/banner.py <seed>_d58` adds the Orbitron title, the subtitle and the frame.
+
+Current banner: seed 601, denoise 0.58. Not shipped in the mod zip.
 
 ## Style
 

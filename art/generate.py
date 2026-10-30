@@ -17,8 +17,8 @@ HERE = Path(__file__).resolve().parent
 RAW = HERE / "raw"
 
 
-def workflow(prompt, width, height, seed):
-    return {
+def workflow(prompt, width, height, seed, init=None, denoise=1.0):
+    wf = {
         "1": {"class_type": "UNETLoader", "inputs": {"unet_name": "z_image_turbo_nvfp4.safetensors", "weight_dtype": "default"}},
         "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": "qwen_3_4b_fp8_mixed.safetensors", "type": "lumina2"}},
         "3": {"class_type": "VAELoader", "inputs": {"vae_name": "z_image_ae.safetensors"}},
@@ -32,6 +32,25 @@ def workflow(prompt, width, height, seed):
         "9": {"class_type": "VAEDecode", "inputs": {"samples": ["8", 0], "vae": ["3", 0]}},
         "10": {"class_type": "SaveImage", "inputs": {"images": ["9", 0], "filename_prefix": "crst"}},
     }
+    if init:
+        # img2img: start from an uploaded picture instead of noise (the banner starts from the Onslaught sprite).
+        wf["11"] = {"class_type": "LoadImage", "inputs": {"image": init}}
+        wf["12"] = {"class_type": "VAEEncode", "inputs": {"pixels": ["11", 0], "vae": ["3", 0]}}
+        wf["8"]["inputs"]["latent_image"] = ["12", 0]
+        wf["8"]["inputs"]["denoise"] = denoise
+    return wf
+
+
+def upload(url, path):
+    """Uploads an image to ComfyUI's input folder; returns the name LoadImage takes."""
+    boundary = "----crst" + str(random.randrange(10**12))
+    body = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"image\"; filename=\"{path.name}\"\r\n"
+            f"Content-Type: image/png\r\n\r\n").encode() + path.read_bytes() + \
+           f"\r\n--{boundary}\r\nContent-Disposition: form-data; name=\"overwrite\"\r\n\r\ntrue\r\n--{boundary}--\r\n".encode()
+    req = urllib.request.Request(url + "/upload/image", data=body,
+                                 headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read())["name"]
 
 
 def call(url, path, data=None):
@@ -61,6 +80,7 @@ def main():
     ap.add_argument("--seeds", type=int, default=1, help="variants per station")
     ap.add_argument("--seed", type=int, help="first seed (default random)")
     ap.add_argument("--url", default="http://127.0.0.1:8188")
+    ap.add_argument("--denoise", type=float, help="img2img strength for entries with an init image")
     a = ap.parse_args()
     cfg = json.loads((HERE / "prompts.json").read_text())
     names = a.stations or list(cfg["stations"])
@@ -72,11 +92,13 @@ def main():
         # Entries with their own "prompt" (the forum banner) skip the shared Station style.
         prompt = st.get("prompt") or cfg["style"].format(accent=st["accent"]) + " " + st["subject"]
         width, height = st.get("w", cfg["size"]), st.get("h", cfg["size"])
+        init = upload(a.url, HERE / st["init"]) if st.get("init") else None
+        denoise = a.denoise if a.denoise is not None else st.get("denoise", 1.0)
         for i in range(a.seeds):
             seed = (a.seed + i) if a.seed is not None else random.randrange(2**31)
             t = time.time()
-            png = run(a.url, workflow(prompt, width, height, seed))
-            out = RAW / f"{name}_{seed}.png"
+            png = run(a.url, workflow(prompt, width, height, seed, init, denoise))
+            out = RAW / (f"{name}_{seed}.png" if init is None else f"{name}_{seed}_d{round(denoise * 100)}.png")
             out.write_bytes(png)
             print(f"{out.relative_to(HERE.parent)}  {time.time() - t:.1f}s", flush=True)
 

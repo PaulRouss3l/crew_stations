@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Forum banner: art/raw/banner_<seed>.png + title and subtitle -> docs/assets/banner.png (1600x640).
 
-Usage: python3 art/banner.py <seed> [--font Orbitron-Bold.ttf] [--font-sub Orbitron-Medium.ttf]
+Usage: python3 art/banner.py init                 art/raw/banner_init.png: the game's Onslaught sprite, nose right,
+                                                   on a dark 1600x640 canvas (img2img start for "banner")
+       python3 art/banner.py <seed> [--font Orbitron-Bold.ttf] [--font-sub Orbitron-Medium.ttf]
 Orbitron (SIL Open Font License) is not shipped with the repo: pass its path, or keep it where TriOS installs it.
 Same layout as Slay the Sector's banner: glowing title near the bottom, cyan subtitle, thin teal frame.
 """
 import argparse
+import os
+import random
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -21,6 +25,24 @@ SIZE = (1600, 640)
 def centered(draw, y, text, font):
     w = draw.textbbox((0, 0), text, font=font)[2]
     return ((SIZE[0] - w) // 2, y)
+
+
+def init():
+    game = Path(os.environ.get("STARSECTOR_DIR", "/home/ubik/Downloads/starsector"))
+    ship = Image.open(game / "graphics/ships/onslaught/onslaught_base.png").convert("RGBA").rotate(-90, expand=True)
+    height = 560
+    ship = ship.resize((round(ship.size[0] * height / ship.size[1]), height), Image.LANCZOS)
+    canvas = Image.new("RGBA", SIZE, (6, 8, 12, 255))
+    d = ImageDraw.Draw(canvas)
+    rng = random.Random(1)
+    for _ in range(260):
+        x, y, v = rng.randrange(SIZE[0]), rng.randrange(SIZE[1]), rng.randrange(60, 200)
+        d.point((x, y), fill=(v, v, v + 20, 255))
+    canvas.alpha_composite(ship, ((SIZE[0] - ship.size[0]) // 2, 0))
+    out = HERE / "raw" / "banner_init.png"
+    out.parent.mkdir(exist_ok=True)
+    canvas.convert("RGB").save(out)
+    print(out.relative_to(HERE.parent))
 
 
 def main():
@@ -60,4 +82,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if sys.argv[1:] == ["init"]:
+        init()
+    else:
+        main()
