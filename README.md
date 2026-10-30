@@ -58,7 +58,8 @@ materials.
 
 **Simulator Bay, a Slay the Sector reward.** Win a Run in
 [Slay the Sector](https://github.com/PaulRouss3l/slay_the_sector) (any save, any faction) and Station Yard
-Inc. adds the Simulator Bay to its Catalogue: crews trained in the Descent Relay's simulation. Neither mod
+Inc. adds the Simulator Bay to its Catalogue: you stream your Descent exploits to boost crew morale. No
+one has to know it was a simulation. Neither mod
 needs the other; Crew Stations simply reads Slay the Sector's progress file.
 
 ## Prices

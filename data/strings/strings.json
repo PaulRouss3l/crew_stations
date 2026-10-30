@@ -146,7 +146,7 @@
 		"effect_crRecovery": "Combat readiness recovery",
 		"category_simulator": "reward",
 		"cat_reward": "Reward",
-		"desc_simulator": "Crews trained in the Descent Relay's simulation. They have died a thousand times and remember every one.",
+		"desc_simulator": "As an exceptional pilot, you stream your combat exploits to boost crew morale. No one has to know it was a simulation.",
 		"ui_unlock_sts": "Slay the Sector reward: offered once you have won a Run in the Descent."
 	}
 }
