@@ -4,8 +4,8 @@
 `[CrewStations]`. Afterwards run `python3 tools/log_scan.py --mod .`.
 
 ## 1. Locked
-- [ ] With no Slay the Sector win (rename `saves/common/slay_the_sector_meta.json*` out of the way, or a
-      fresh install): The Catalogue shows **ALL 10**, no *Reward* tab, five columns. `crst add simulator 1`
+- [ ] With no Slay the Sector win (`crst unlock off`, or rename
+      `saves/common/slay_the_sector_meta.json*` out of the way): The Catalogue shows **ALL 10**, no *Reward* tab, five columns. `crst add simulator 1`
       refuses ("not offered yet"). `crst unlock` reports *found: no, offered: no*.
 
 ## 2. Unlocked
@@ -18,5 +18,5 @@
       ship's max CR is 5 points higher (e.g. 70% -> 75%).
 
 ## 3. Lock again
-- [ ] Remove the unlock (file away, `crst unlock off`, `crst_unlockAll` false), reload: the built Simulator Bay stays and works;
+- [ ] Remove the unlock (`crst unlock off`), reopen the showroom: the built Simulator Bay stays and works;
       The Catalogue hides it for other ships, shows it for the ship that has it.

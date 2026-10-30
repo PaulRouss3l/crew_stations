@@ -24,7 +24,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
  *   crst list                      the selected ship's Stations and slots
  *   crst add <station> <level>     build or set a Station (same checks as a Shipyard, minus cost)
  *   crst clear [station]           remove one Station, or all
- *   crst unlock [on|off]           reward Station unlocks; on/off forces them until the game closes
+ *   crst unlock [on|off|auto]      reward Station unlocks; on/off forces offered/locked until the game closes
  */
 public class CrstCommand implements BaseCommand {
 
@@ -72,14 +72,15 @@ public class CrstCommand implements BaseCommand {
         }
     }
 
-    /** Shows the reward unlocks; "on"/"off" forces them for this game session (not saved). */
-    private static CommandResult unlock(String onOff) {
-        if ("on".equalsIgnoreCase(onOff)) Unlock.setForced(true);
-        else if ("off".equalsIgnoreCase(onOff)) Unlock.setForced(false);
-        else if (onOff != null) return CommandResult.BAD_SYNTAX;
+    /** Shows the reward unlocks; on/off forces them offered/locked for this game session, auto reads the files. */
+    private static CommandResult unlock(String mode) {
+        if ("on".equalsIgnoreCase(mode)) Unlock.setOverride(true);
+        else if ("off".equalsIgnoreCase(mode)) Unlock.setOverride(false);
+        else if ("auto".equalsIgnoreCase(mode)) Unlock.setOverride(null);
+        else if (mode != null) return CommandResult.BAD_SYNTAX;
         Unlock.refresh();
         Console.showMessage("Slay the Sector won Run found: " + (Unlock.stsWon() ? "yes" : "no")
-                + ". Override: " + (Unlock.forced() ? "on" : "off") + ". Simulator Bay offered: "
+                + ". Override: " + Unlock.override() + ". Simulator Bay offered: "
                 + (StationType.SIMULATOR.unlock.isMet() ? "yes" : "no") + ".");
         return CommandResult.SUCCESS;
     }
