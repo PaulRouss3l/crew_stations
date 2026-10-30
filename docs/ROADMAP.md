@@ -58,5 +58,5 @@ Pipeline and prompts: `ART.md`.
 ## S4 — Polish + release
 
 - 🟡 Balance pass against vanilla s-mods/skills. Prices lowered to 0.75× after play-testing.
-- ⬜ README, forum post, known issues (sold ship keeps Stations).
-- ⬜ Release 0.1.0.
+- ✅ README, forum post, known issues (sold ship keeps Stations).
+- 🟡 Release 0.1.0 (beta).
