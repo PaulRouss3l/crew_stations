@@ -1,0 +1,60 @@
+{
+  "_comment": "Station illustrations for S3 (docs/ART.md). One square image per Station, cropped by the screen: the card banner shows the centre band (~2.2:1), the picker tile the centre column (~0.65:1). Keep the subject in the centre.",
+  "size": 1024,
+  "style": "Concept art illustration, interior of a cramped crewed compartment aboard a worn industrial starship, painterly digital painting in the style of gritty 1990s space-strategy concept art, muted desaturated steel-grey and dark teal palette, one strong accent light of {accent}, two or three crew in grimy work jumpsuits, cables and pipes, scuffed metal plating, low-key dramatic lighting. Compact composition: the main subject is small and centered in the middle of the frame, the room continues to every edge. No text, no logos, no UI.",
+  "stations": {
+    "shield": {
+      "accent": "cyan",
+      "subject": "Shield control room: crew at consoles watching a holographic bubble diagram of the ship's shield, glowing cyan emitter coils behind armoured glass."
+    },
+    "logistics": {
+      "accent": "amber",
+      "subject": "Quartermaster's bay: crew with data slates checking stacked supply crates and thick fuel lines, an inventory board glowing amber."
+    },
+    "engine": {
+      "accent": "orange",
+      "subject": "Engine room: crew at throttle consoles before a viewport onto a huge glowing orange thruster chamber, heat haze."
+    },
+    "energy": {
+      "accent": "violet",
+      "subject": "Capacitor bay: crew calibrating large beam-emitter lenses, violet energy arcs between capacitor banks."
+    },
+    "ballistic": {
+      "accent": "warm yellow",
+      "subject": "Autoloader gallery: crew hauling heavy shells onto an ammunition conveyor that feeds a massive turret breech, yellow sparks."
+    },
+    "missile": {
+      "accent": "red",
+      "subject": "Missile magazine: crew hand-loading missiles into tall vertical launch racks under red warning lights."
+    },
+    "phase": {
+      "accent": "pale magenta",
+      "subject": "Phase coil chamber: crew in hooded suits around a ring of shimmering coils, the air warped and doubled, ghostly afterimages."
+    },
+    "reactor": {
+      "accent": "electric blue",
+      "subject": "Reactor control: crew at flux gauges before a glowing blue-white fusion core inside a containment ring."
+    },
+    "damage_control": {
+      "accent": "green",
+      "subject": "Damage control team: crew in welding masks patching a breached bulkhead, sparks, flashing emergency lights."
+    },
+    "flight_deck": {
+      "accent": "white with amber stripes",
+      "subject": "Hangar bay: one small single-seat fighter craft parked in the middle of the frame on a launch rail, deck crew refuelling it with hoses and loading a missile under its wing, signal batons, bright launch lights."
+    }
+  },
+  "icons": {
+    "hullmod": {
+      "accent": "warm orange",
+      "subject": "Close-up icon framing: two crew in work jumpsuits and headsets at a glowing console, one pointing, faces lit by the screen, bold silhouettes and strong contrast so it still reads at 32 pixels, simple background."
+    },
+    "banner": {
+      "w": 1600,
+      "h": 640,
+      "init": "raw/banner_init.png",
+      "denoise": 0.58,
+      "prompt": "Painterly concept art, top-down view of the Onslaught, a massive brutal rust-brown armored battleship drifting in space, nose pointing right. Its thick hull plating is cut away in five places, revealing brightly lit crewed compartments seen from above like a dollhouse: a cyan shield control room, an orange engine room, a blue-white reactor core, a red missile magazine, a hangar with a small fighter; tiny crew in work jumpsuits busy in each room. Gritty 1990s space-strategy concept art style, rich detail on the hull, dark starfield, deep black empty space along the bottom of the image. No text, no logos, no UI."
+    }
+  }
+}

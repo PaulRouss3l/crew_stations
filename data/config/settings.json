@@ -54,10 +54,10 @@
 	},
 
 	# Costs. Credits and commodities per Level (L1, L2, L3), times the hull multiplier.
-	"crst_creditsPerLevel": [150000, 400000, 900000],
-	"crst_heavyMachineryPerLevel": [100, 200, 300],
-	"crst_metalsPerLevel": [0, 500, 0],
-	"crst_rareMetalsPerLevel": [0, 0, 200],
+	"crst_creditsPerLevel": [112500, 300000, 675000],
+	"crst_heavyMachineryPerLevel": [75, 150, 225],
+	"crst_metalsPerLevel": [0, 375, 0],
+	"crst_rareMetalsPerLevel": [0, 0, 150],
 	# Hull multiplier: frigate, destroyer, cruiser, capital.
 	"crst_hullCostMult": [0.5, 1, 2, 4],
 	# Share of credits paid that Dismantle gives back.
@@ -66,18 +66,18 @@
 	"crst_l3Gate": true,
 
 	"graphics": {
-		# Station art. Placeholders (vanilla hullmod icons) until S3.
+		# Station art, 512x512, cropped to each box by the screen (docs/ART.md).
 		"crst_stations": {
-			"shield": "graphics/hullmods/hardened_shields.png",
-			"logistics": "graphics/hullmods/efficiency.png",
-			"engine": "graphics/hullmods/augmented_engines.png",
-			"energy": "graphics/hullmods/advanced_optics.png",
-			"ballistic": "graphics/hullmods/ballistic_rangefinder.png",
-			"missile": "graphics/hullmods/expanded_missile_racks.png",
-			"phase": "graphics/hullmods/phase_field.png",
-			"reactor": "graphics/hullmods/flux_distributor.png",
-			"damage_control": "graphics/hullmods/blast_doors.png",
-			"flight_deck": "graphics/hullmods/expanded_deck_crew.png"
+			"shield": "graphics/crew_stations/stations/shield.png",
+			"logistics": "graphics/crew_stations/stations/logistics.png",
+			"engine": "graphics/crew_stations/stations/engine.png",
+			"energy": "graphics/crew_stations/stations/energy.png",
+			"ballistic": "graphics/crew_stations/stations/ballistic.png",
+			"missile": "graphics/crew_stations/stations/missile.png",
+			"phase": "graphics/crew_stations/stations/phase.png",
+			"reactor": "graphics/crew_stations/stations/reactor.png",
+			"damage_control": "graphics/crew_stations/stations/damage_control.png",
+			"flight_deck": "graphics/crew_stations/stations/flight_deck.png"
 		}
 	}
 }

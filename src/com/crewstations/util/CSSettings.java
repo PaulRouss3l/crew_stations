@@ -19,10 +19,10 @@ public final class CSSettings {
 
     private static int[] slots = {1, 2, 3, 4};
     private static float crewPercentPerLevel = 10f;
-    private static int[] creditsPerLevel = {150000, 400000, 900000};
-    private static int[] heavyMachineryPerLevel = {100, 200, 300};
-    private static int[] metalsPerLevel = {0, 500, 0};
-    private static int[] rareMetalsPerLevel = {0, 0, 200};
+    private static int[] creditsPerLevel = {112500, 300000, 675000};
+    private static int[] heavyMachineryPerLevel = {75, 150, 225};
+    private static int[] metalsPerLevel = {0, 375, 0};
+    private static int[] rareMetalsPerLevel = {0, 0, 150};
     private static float[] hullCostMult = {0.5f, 1f, 2f, 4f};
     private static float refundFraction = 0.25f;
     private static boolean l3Gate = true;

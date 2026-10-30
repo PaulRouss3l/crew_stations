@@ -1,0 +1,22 @@
+name: Balance feedback
+description: A Station felt too strong, too weak, too cheap or too expensive.
+labels: ["balance"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The beta's numbers are still being tuned, so every opinion helps.
+  - type: textarea
+    id: what
+    attributes:
+      label: What felt off?
+      placeholder: "The Reactor Station is a must-have; nothing else comes close."
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Your game
+      description: Which ships and Stations, at what level, and roughly how far into the campaign you were.
+    validations:
+      required: false

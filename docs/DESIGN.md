@@ -70,12 +70,12 @@ Credits per Level = Level base × hull multiplier. Each upgrade pays only that L
 
 | | L1 | L2 | L3 |
 |---|---|---|---|
-| Credits base | 150,000 | 400,000 | 900,000 |
-| Commodities base | 100 heavy machinery | 200 heavy machinery + 500 metals | 300 heavy machinery + 200 rare metals |
+| Credits base | 112,500 | 300,000 | 675,000 |
+| Commodities base | 75 heavy machinery | 150 heavy machinery + 375 metals | 225 heavy machinery + 150 rare metals |
 
 Hull multiplier (credits and commodities): frigate ×0.5, destroyer ×1, cruiser ×2, capital ×4.
-A capital L3 costs 3.6M credits + 1,200 heavy machinery + 800 rare metals. Stations are a late-game
-material project on purpose.
+A capital L3 costs 2.7M credits + 900 heavy machinery + 600 rare metals. Stations are a late-game
+material project on purpose. (Prices lowered to 0.75× after play-testing, 2026-10-30.)
 
 **Paying commodities**, in order: fleet cargo → the player's storage at that market → buy the rest
 from the market's stock at its price. If all three fall short, the action is disabled and the tooltip
@@ -133,12 +133,11 @@ with Level and effects, inactive ones greyed.
 
 ## Art
 
-- 10 Station card illustrations (~128×128): AI-generated with the local ComfyUI (Z-Image Turbo), then
-  cropped, downscaled and tone-matched to vanilla by script. Interior shots of the crewed compartment,
-  worn industrial sci-fi, muted palette, one accent colour per type (shield cyan, engine orange,
-  energy violet...).
-- 10 Station icons (32×32) and the hullmod icon: script-drawn glyphs (PIL) in vanilla's flat icon style.
-- 1 screen banner (AI-generated).
+- 10 Station illustrations: one 512×512 image per Station (AI-generated with the local ComfyUI, Z-Image
+  Turbo), cropped by the screen to the card banner, picker tile and detail panel. Interior shots of the crewed
+  compartment, worn industrial sci-fi, muted palette, one accent colour per type. Details: `ART.md`.
+- Hullmod icon (32×32): a small painting like vanilla's hullmod icons, generated the same way, then cropped,
+  downscaled and sharpened (`art/process.py icon`).
 
 ## Configuration
 

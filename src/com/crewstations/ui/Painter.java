@@ -113,12 +113,38 @@ class Painter implements CustomUIPanelPlugin {
 
     /** Sprite scaled to fit the box, aspect kept, centred. {@code tint} null = full colour. */
     Painter sprite(String path, float x, float y, float w, float h, Color tint, boolean overChildren) {
+        return sprite(path, x, y, w, h, tint, overChildren, false);
+    }
+
+    /**
+     * Sprite drawn in the box. {@code cover}: fills the box and crops the centre of the image to the box's shape
+     * (Station art, docs/ART.md); otherwise fits inside it. {@code tint} null = full colour.
+     */
+    Painter sprite(String path, float x, float y, float w, float h, Color tint, boolean overChildren, boolean cover) {
         if (path == null) return this;
         SpriteAPI s = Global.getSettings().getSprite(path);
         if (s == null || s.getWidth() <= 0 || s.getHeight() <= 0) return this;
-        float scale = Math.min(w / s.getWidth(), h / s.getHeight());
-        float sw = s.getWidth() * scale, sh = s.getHeight() * scale;
+        float sw, sh, fx = 1f, fy = 1f;
+        if (cover) {
+            sw = w;
+            sh = h;
+            float imageAr = s.getWidth() / s.getHeight(), boxAr = w / h;
+            if (imageAr > boxAr) fx = boxAr / imageAr;
+            else fy = imageAr / boxAr;
+        } else {
+            float scale = Math.min(w / s.getWidth(), h / s.getHeight());
+            sw = s.getWidth() * scale;
+            sh = s.getHeight() * scale;
+        }
+        // Texture coordinates of the whole image, as loaded (textures may be padded to a power of two).
+        float tw = s.getTextureWidth(), th = s.getTextureHeight();
+        float cropX = fx, cropY = fy;
         Op op = (l, t, a) -> {
+            // Set every frame: the same sprite may be drawn uncropped elsewhere.
+            s.setTexX(tw * (1f - cropX) / 2f);
+            s.setTexWidth(tw * cropX);
+            s.setTexY(th * (1f - cropY) / 2f);
+            s.setTexHeight(th * cropY);
             s.setSize(sw, sh);
             s.setColor(tint != null ? tint : Color.WHITE);
             s.setAlphaMult(a);
