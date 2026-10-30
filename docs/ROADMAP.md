@@ -52,11 +52,11 @@ Pipeline and prompts: `ART.md`.
 
 - ✅ 10 Station illustrations (ComfyUI, Z-Image Turbo), 512×512, one square image cropped per box.
 - ✅ Screen draws Station art cropped to fill (card banner, picker tile, detail panel).
-- 🟡 Hullmod icon (32×32, painted like vanilla icons: generated, then cropped, downscaled and sharpened).
+- ✅ Hullmod icon (32×32, painted like vanilla icons: generated, then cropped, downscaled and sharpened).
 - ✅ Station art verified in game 2026-10-30.
 
 ## S4 — Polish + release
 
-- ⬜ Balance pass against vanilla s-mods/skills.
+- 🟡 Balance pass against vanilla s-mods/skills. Prices lowered to 0.75× after play-testing.
 - ⬜ README, forum post, known issues (sold ship keeps Stations).
 - ⬜ Release 0.1.0.

@@ -54,10 +54,10 @@
 	},
 
 	# Costs. Credits and commodities per Level (L1, L2, L3), times the hull multiplier.
-	"crst_creditsPerLevel": [150000, 400000, 900000],
-	"crst_heavyMachineryPerLevel": [100, 200, 300],
-	"crst_metalsPerLevel": [0, 500, 0],
-	"crst_rareMetalsPerLevel": [0, 0, 200],
+	"crst_creditsPerLevel": [112500, 300000, 675000],
+	"crst_heavyMachineryPerLevel": [75, 150, 225],
+	"crst_metalsPerLevel": [0, 375, 0],
+	"crst_rareMetalsPerLevel": [0, 0, 150],
 	# Hull multiplier: frigate, destroyer, cruiser, capital.
 	"crst_hullCostMult": [0.5, 1, 2, 4],
 	# Share of credits paid that Dismantle gives back.
