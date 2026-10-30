@@ -694,7 +694,8 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             status = fmt("ui_installed", "" + built);
             sc = GREEN;
         } else if (lock) {
-            status = type.unlock.howTo();
+            // How to unlock it is in the detail panel; the tile only says it is locked.
+            status = str("ui_locked_tile");
             sc = DIM;
         } else if (why != null) {
             // Rule reasons are short; a cost reason is summarised here and spelled out in the detail panel.
