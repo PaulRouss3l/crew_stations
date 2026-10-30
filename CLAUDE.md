@@ -4,7 +4,9 @@ Context router for AI sessions. Keep this file lean; detail lives in `docs/`.
 
 ## What this is
 
-A **Starsector 0.98a** mod. **Java only** (no Kotlin). Concept: TBD (see `docs/DESIGN.md`).
+A **Starsector 0.98a** mod: players build and upgrade crewed **Stations** aboard their ships at
+heavy-industry **Shipyards** for permanent stat bonuses (automated ships excluded). **Java only**
+(no Kotlin). Design: `docs/DESIGN.md`; storage: `docs/adr/0001-*`.
 Domain terms: `GLOSSARY.md`.
 
 ## Build / run
