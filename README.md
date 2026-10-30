@@ -10,29 +10,35 @@
 
 **[Download the latest release](https://github.com/PaulRouss3l/crew_stations/releases)** (zip, extract into `mods/`). No dependencies.
 
-Dock at any market with heavy industry and visit its **Station yard**. There you can build
-dedicated, crewed compartments aboard your ships: a shield control room, an engine room, a missile
-magazine... Each Station improves one part of the ship and can be upgraded twice. They are expensive,
-they need extra crew, and they stay with the ship for good.
+> *Tired of crews who merely survive? **Station Yard Inc.**, the Sector's most exclusive outfitter, fits
+> your ships with hand-crafted crewed Stations, staffed by the finest specialists money can rent. Visit
+> any of our showrooms, conveniently located wherever there is heavy industry. Prices are high because
+> quality is high. Also because we can.*
+
+Dock at any market with heavy industry and visit the **Station Yard Inc. showroom**. There you can
+build dedicated, crewed compartments aboard your ships: a shield control room, an engine room, a
+missile magazine... Each Station improves one part of the ship and can be upgraded twice. They are
+expensive, they need extra crew, and they stay with the ship for good.
 
 ## How it plays
 
 1. **Find a Shipyard.** Any market with working **Heavy Industry** (or a modded industry tagged as
    one) whose owner is not hostile, your own colonies included. The dock menu shows *Visit the
-   shipyard's Station yard*.
+   Station Yard Inc. showroom*.
 2. **Pick a ship.** Frigates have 1 Station slot, destroyers 2, cruisers 3, capitals 4. Automated
    ships have no crew, so no Stations.
-3. **Build a Station.** Ten types, each with its own requirement (shields, a phase cloak, fighter
+3. **Order a Station** from the Catalogue. Ten types, each with its own requirement (shields, a phase cloak, fighter
    bays, a weapon slot of the right kind...). The picker shows every effect at every level, the
    price, and where the materials will come from.
-4. **Upgrade it.** Level 1 Basic, Level 2 Advanced, Level 3 Elite. Level 3 needs a Shipyard with
+4. **Upgrade it.** Level 1 Standard, Level 2 Deluxe, Level 3 Platinum. Platinum needs a showroom with
    **Orbital Works** or a nanoforge.
 5. **Pay for it.** Credits plus heavy machinery, metals and rare metals, taken from your cargo first,
    then your storage at that market, then bought from its open market. Bigger hulls pay more.
 
 Every Station level adds **10% to the ship's skeleton and max crew**. A Station whose requirement is
 no longer met (for example shields turned into Shield Shunt) goes **inactive**: no bonus, crew still
-needed. Dismantling refunds 25% of the credits paid, no materials.
+needed. Dismantling refunds 25% of the credits paid (after Station Yard Inc.'s restocking fee), no
+materials.
 
 ## The ten Stations
 

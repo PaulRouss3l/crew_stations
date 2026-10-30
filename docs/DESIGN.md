@@ -23,7 +23,7 @@ materials, and need extra crew. Automated ships cannot have them.
 
 - Slots per hull size: frigate 1, destroyer 2, cruiser 3, capital 4.
 - At most one Station of each type per ship.
-- Three Levels: L1 Basic, L2 Advanced, L3 Elite. A Station is built at L1 and upgraded one Level at a
+- Three Levels: L1 Standard, L2 Deluxe, L3 Platinum. A Station is built at L1 and upgraded one Level at a
   time. No downgrade: the only way back is to dismantle the whole Station.
 
 ### Station types and effects (L1 / L2 / L3)
@@ -97,9 +97,13 @@ and its owner is not hostile to the player. Player colonies count.
 
 ## Screen
 
-A "Visit the shipyard's Station yard" option appears in the market dock dialog (rules.csv
+A "Visit the Station Yard Inc. showroom" option appears in the market dock dialog (rules.csv
 `PopulateOptions`) only at a Shipyard. It opens a 1120×700 custom dialog (fits the 1280×768 minimum screen).
 Reference layout: the "Crew Stations Shipyard UI" design canvas (https://claude.ai/artifact/UqcqQEFpxNMhFU4FhdpwzD).
+
+**Flavour**: the screen is the showroom of **Station Yard Inc.**, a luxurious, slightly smug megacorp. The
+header shows a random slogan (`ui_taglines` in strings.json), the picker is "The Catalogue", orders are
+signed, returns pay a restocking fee. All of it lives in strings.json; the rules stay plain.
 
 **Ship view**
 

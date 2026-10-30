@@ -2,7 +2,10 @@
 
 ## 0.1.1 (beta)
 
-- The crew Station works is now called the **Station yard** (dock menu and screen title).
+- **Station Yard Inc.:** the shop is now run by a luxurious megacorp. The dock menu offers *Visit the Station
+  Yard Inc. showroom*; the screen has a slogan of the day, the picker is *The Catalogue*, orders are signed
+  and returns come with a restocking fee. Station descriptions and the hullmod text got the same treatment.
+- Levels are now **Standard, Deluxe and Platinum** (were Basic, Advanced, Elite).
 
 
 ## 0.1.0 (beta)
