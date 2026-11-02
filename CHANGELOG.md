@@ -4,6 +4,8 @@
 
 - **Fix:** on the ship screen, a long price or reason line on a Station card (capital ships especially) no
   longer hides under the Upgrade / Dismantle buttons. The card footer now grows upward to fit its text.
+- **Fix:** narrow Station cards (capital ships, 4 slots) no longer overlap their title, level name and effect
+  rows: the header stacks title, level and pips, and each effect shows its values on the line below.
 
 ## 0.2.0 (beta)
 
