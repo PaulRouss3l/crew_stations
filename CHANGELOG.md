@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Fix:** on the ship screen, a long price or reason line on a Station card (capital ships especially) no
+  longer hides under the Upgrade / Dismantle buttons. The card footer now grows upward to fit its text.
+
 ## 0.2.0 (beta)
 
 - **Locked Stations.** Station Yard Inc. now keeps some Stations for proven customers. Until unlocked they

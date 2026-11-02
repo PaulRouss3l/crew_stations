@@ -501,7 +501,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         cp.fill(0, 0, w, h, PANEL).border(0, 0, w, h, LINE);
 
         boolean narrow = w < 260f;
-        float artH = narrow ? 90f : 120f;
+        float artH = narrow ? 74f : 104f;
         cp.fill(1, 1, w - 2, artH - 1, GROUND).grid(1, 1, w - 2, artH - 1, 12f, GRID).line(0, artH, w, artH, LINE);
         cp.sprite(type.sprite(), 1f, 1f, w - 2f, artH - 1f, active ? null : ART_OFF, false, true);
         float bandY = artH, bandH = 52f;
@@ -530,9 +530,10 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         String[] heads = maxed ? new String[] { str("ui_col_now") } : new String[] { str("ui_col_now"), fmt("ui_col_level", "" + (level + 1)) };
         effectTable(card, 10f, ty, w - 20f, type, levels, heads, active ? 0 : -1);
 
-        // Footer: price or reason, then the buttons.
-        float fy = narrow ? h - 106f : h - 88f;
-        cp.line(0, fy, w, fy, LINE_DIM);
+        // Footer, laid out bottom-up: buttons pinned to the card bottom, the price/reason note above them at
+        // its measured height, the divider above the note. Long notes push the divider up instead of
+        // running under the buttons.
+        float bh = narrow ? 26f : 30f, btnY = narrow ? h - 2 * bh - 14f : h - 42f;
         TooltipMakerAPI note = card.createUIElement(w - 20f, 36f, false);
         String why = null;
         if (!maxed) {
@@ -542,10 +543,12 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         if (maxed) para(note, str("ui_max_level"), null, DIM, 0f);
         else if (why != null && active) para(note, why, null, Misc.getNegativeHighlightColor(), 0f);
         else if (why == null) para(note, priceLine(level + 1), null, DIM, 0f);
-        put(card, note, 10f, fy + 8f);
+        float noteY = Math.min(narrow ? h - 98f : h - 80f, btnY - 6f - note.getHeightSoFar());
+        cp.line(0, noteY - 8f, w, noteY - 8f, LINE_DIM);
+        put(card, note, 10f, noteY);
 
         // Side by side on wide cards; stacked full width on narrow ones (capital ships, 4 slots).
-        float bw = narrow ? w - 20f : 96f, bh = narrow ? 26f : 30f;
+        float bw = narrow ? w - 20f : 96f;
         TooltipMakerAPI btns = card.createUIElement(w - 20f, narrow ? 2 * bh + 4f : bh, false);
         ButtonAPI up = null;
         if (!maxed) {
@@ -558,7 +561,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         if (up != null && narrow) dis.getPosition().belowLeft(up, 4f);
         else if (up != null) dis.getPosition().rightOfTop(up, 8f);
         else if (!narrow) dis.getPosition().setXAlignOffset(w - 20f - bw);
-        put(card, btns, 10f, narrow ? h - 2 * bh - 14f : h - 42f);
+        put(card, btns, 10f, btnY);
         content.addComponent(card).inTL(x, y);
     }
 

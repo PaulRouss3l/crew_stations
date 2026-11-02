@@ -55,7 +55,7 @@
 		"ui_dismantle_button": "Dismantle",
 		"ui_inactive": "Inactive: %s",
 		"ui_back": "Back",
-		"ui_cap_reason": "Level %s max here: Platinum fittings need a showroom with Orbital Works or a nanoforge.",
+		"ui_cap_reason": "Level %s max here: higher levels need Orbital Works or a nanoforge.",
 		"ui_confirm": "Sign",
 		"ui_cancel": "Not today",
 		"ui_refund": "Refund, after restocking fee:",
