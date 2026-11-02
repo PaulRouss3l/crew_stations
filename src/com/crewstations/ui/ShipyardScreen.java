@@ -501,7 +501,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         cp.fill(0, 0, w, h, PANEL).border(0, 0, w, h, LINE);
 
         boolean narrow = w < 260f;
-        float artH = narrow ? 74f : 104f;
+        float artH = narrow ? 66f : 104f;
         cp.fill(1, 1, w - 2, artH - 1, GROUND).grid(1, 1, w - 2, artH - 1, 12f, GRID).line(0, artH, w, artH, LINE);
         cp.sprite(type.sprite(), 1f, 1f, w - 2f, artH - 1f, active ? null : ART_OFF, false, true);
         // Band: title, level name, pips. Wide cards fit the level name beside the pips; narrow ones stack all
@@ -638,7 +638,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
                 put(p, v, x + labelW + c * colW, vy);
                 valH = Math.max(valH, v.getHeightSoFar());
             }
-            ry = stacked ? vy + valH + 6f : ry + Math.max(32f, Math.max(l.getHeightSoFar(), valH) + 4f);
+            ry = stacked ? vy + valH + 4f : ry + Math.max(32f, Math.max(l.getHeightSoFar(), valH) + 4f);
         }
     }
 
