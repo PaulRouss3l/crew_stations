@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.1 (beta)
 
 - **Fix:** on the ship screen, a long price or reason line on a Station card (capital ships especially) no
   longer hides under the Upgrade / Dismantle buttons. The card footer now grows upward to fit its text.
