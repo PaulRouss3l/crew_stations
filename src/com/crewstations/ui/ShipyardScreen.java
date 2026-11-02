@@ -501,22 +501,37 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         cp.fill(0, 0, w, h, PANEL).border(0, 0, w, h, LINE);
 
         boolean narrow = w < 260f;
-        float artH = narrow ? 90f : 120f;
+        float artH = narrow ? 66f : 104f;
         cp.fill(1, 1, w - 2, artH - 1, GROUND).grid(1, 1, w - 2, artH - 1, 12f, GRID).line(0, artH, w, artH, LINE);
         cp.sprite(type.sprite(), 1f, 1f, w - 2f, artH - 1f, active ? null : ART_OFF, false, true);
-        float bandY = artH, bandH = 52f;
-        cp.fill(1, bandY, w - 2, bandH, BAND);
+        // Band: title, level name, pips. Wide cards fit the level name beside the pips; narrow ones stack all
+        // three, measured, so a two-line title or level name never runs into the next line.
+        float bandY = artH;
         Color pip = active ? Misc.getHighlightColor() : DIM;
-        for (int i = 0; i < StationType.MAX_LEVEL; i++) {
-            if (i < level) cp.fill(10f + i * 26f, bandY + 34f, 22f, 6f, pip);
-            else cp.border(10f + i * 26f, bandY + 34f, 22f, 6f, pip);
-        }
         TooltipMakerAPI head = card.createUIElement(w - 20f, 30f, false);
         para(head, type.displayName().toUpperCase(), Fonts.ORBITRON_12, TEXT, 0f);
         put(card, head, 10f, bandY + 8f);
-        TooltipMakerAPI lv = card.createUIElement(w - 100f, 16f, false);
-        para(lv, fmt("ui_level_short", "" + level, StationType.levelName(level).toUpperCase()), null, pip, 0f);
-        put(card, lv, 92f, bandY + 30f);
+        String lvText = fmt("ui_level_short", "" + level, StationType.levelName(level).toUpperCase());
+        float pipY, bandH;
+        if (narrow) {
+            float lvY = bandY + 8f + head.getHeightSoFar() + 4f;
+            TooltipMakerAPI lv = card.createUIElement(w - 20f, 16f, false);
+            para(lv, lvText, null, pip, 0f);
+            put(card, lv, 10f, lvY);
+            pipY = lvY + lv.getHeightSoFar() + 6f;
+            bandH = pipY + 6f + 10f - bandY;
+        } else {
+            TooltipMakerAPI lv = card.createUIElement(w - 100f, 16f, false);
+            para(lv, lvText, null, pip, 0f);
+            put(card, lv, 92f, bandY + 30f);
+            pipY = bandY + 34f;
+            bandH = 52f;
+        }
+        cp.fill(1, bandY, w - 2, bandH, BAND);
+        for (int i = 0; i < StationType.MAX_LEVEL; i++) {
+            if (i < level) cp.fill(10f + i * 26f, pipY, 22f, 6f, pip);
+            else cp.border(10f + i * 26f, pipY, 22f, 6f, pip);
+        }
 
         boolean maxed = level >= StationType.MAX_LEVEL;
         float ty = bandY + bandH + 10f;
@@ -524,15 +539,16 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             TooltipMakerAPI off = card.createUIElement(w - 20f, 18f, false);
             para(off, fmt("ui_inactive", type.requirement.reason()), null, Misc.getNegativeHighlightColor(), 0f);
             put(card, off, 10f, ty);
-            ty += 22f;
+            ty += off.getHeightSoFar() + 6f;
         }
         int[] levels = maxed ? new int[] { level } : new int[] { level, level + 1 };
         String[] heads = maxed ? new String[] { str("ui_col_now") } : new String[] { str("ui_col_now"), fmt("ui_col_level", "" + (level + 1)) };
         effectTable(card, 10f, ty, w - 20f, type, levels, heads, active ? 0 : -1);
 
-        // Footer: price or reason, then the buttons.
-        float fy = narrow ? h - 106f : h - 88f;
-        cp.line(0, fy, w, fy, LINE_DIM);
+        // Footer, laid out bottom-up: buttons pinned to the card bottom, the price/reason note above them at
+        // its measured height, the divider above the note. Long notes push the divider up instead of
+        // running under the buttons.
+        float bh = narrow ? 26f : 30f, btnY = narrow ? h - 2 * bh - 14f : h - 42f;
         TooltipMakerAPI note = card.createUIElement(w - 20f, 36f, false);
         String why = null;
         if (!maxed) {
@@ -542,10 +558,12 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         if (maxed) para(note, str("ui_max_level"), null, DIM, 0f);
         else if (why != null && active) para(note, why, null, Misc.getNegativeHighlightColor(), 0f);
         else if (why == null) para(note, priceLine(level + 1), null, DIM, 0f);
-        put(card, note, 10f, fy + 8f);
+        float noteY = Math.min(narrow ? h - 98f : h - 80f, btnY - 6f - note.getHeightSoFar());
+        cp.line(0, noteY - 8f, w, noteY - 8f, LINE_DIM);
+        put(card, note, 10f, noteY);
 
         // Side by side on wide cards; stacked full width on narrow ones (capital ships, 4 slots).
-        float bw = narrow ? w - 20f : 96f, bh = narrow ? 26f : 30f;
+        float bw = narrow ? w - 20f : 96f;
         TooltipMakerAPI btns = card.createUIElement(w - 20f, narrow ? 2 * bh + 4f : bh, false);
         ButtonAPI up = null;
         if (!maxed) {
@@ -558,7 +576,7 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
         if (up != null && narrow) dis.getPosition().belowLeft(up, 4f);
         else if (up != null) dis.getPosition().rightOfTop(up, 8f);
         else if (!narrow) dis.getPosition().setXAlignOffset(w - 20f - bw);
-        put(card, btns, 10f, narrow ? h - 2 * bh - 14f : h - 42f);
+        put(card, btns, 10f, btnY);
         content.addComponent(card).inTL(x, y);
     }
 
@@ -602,19 +620,25 @@ public class ShipyardScreen implements CustomVisualDialogDelegate, Painter.Click
             para(hc, heads[c], null, c == hiCol ? Misc.getHighlightColor() : DIM, 0f).setAlignment(Alignment.RMID);
             put(p, hc, x + labelW + c * colW, y);
         }
-        float rowH = labelW < 120f ? 36f : 32f, ry = y + 18f;
+        // Too narrow for side-by-side (capital ship cards): each effect name gets the full width, its values go
+        // on the line below, under the column heads. Row heights are measured either way.
+        boolean stacked = labelW < 120f;
+        float ry = y + 18f;
         List<StationEffect> rows = masked ? type.effects.subList(0, 1) : type.effects;
         for (StationEffect fx : rows) {
-            TooltipMakerAPI l = p.createUIElement(labelW - 6f, rowH, false);
+            TooltipMakerAPI l = p.createUIElement(stacked ? w : labelW - 6f, 16f, false);
             para(l, masked ? str("ui_mystery") : StationType.effectName(fx), null, hiCol < 0 ? DIM : TEXT, 0f);
             put(p, l, x, ry);
+            float vy = stacked ? ry + l.getHeightSoFar() + 2f : ry;
+            float valH = 0f;
             for (int c = 0; c < levels.length; c++) {
-                TooltipMakerAPI v = p.createUIElement(colW, rowH, false);
+                TooltipMakerAPI v = p.createUIElement(colW, 16f, false);
                 para(v, masked ? str("ui_mystery") : type.valueText(fx, levels[c]), null,
                         c == hiCol ? Misc.getHighlightColor() : DIM, 0f).setAlignment(Alignment.RMID);
-                put(p, v, x + labelW + c * colW, ry);
+                put(p, v, x + labelW + c * colW, vy);
+                valH = Math.max(valH, v.getHeightSoFar());
             }
-            ry += rowH;
+            ry = stacked ? vy + valH + 4f : ry + Math.max(32f, Math.max(l.getHeightSoFar(), valH) + 4f);
         }
     }
 
